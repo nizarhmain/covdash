@@ -14,7 +14,7 @@ The intent of the project is to have a dashboard that would show a map of Italy 
 
 
 <p align="center">
-  <img src="diagrams/mobile.png" width="100%" />
+  <img src="diagrams/mobile.png" width="50%" />
 </p>
 
 
@@ -24,7 +24,7 @@ The intent of the project is to have a dashboard that would show a map of Italy 
 
 
 <p align="center">
-  <img src="diagrams/desktop.png" width="100%" />
+  <img src="diagrams/desktop.png" width="90%" />
 </p>
 
 
