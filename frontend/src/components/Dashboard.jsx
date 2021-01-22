@@ -1,15 +1,10 @@
 import React, { Component } from 'react'
-import MyRadial from './RadialChart'
-import ItalyMap from './ItalyMap'
-import PropertyChooser from './PropertyChooser'
-import SimplePlot from './SimplePlot'
-
 import axios from 'axios'
 
-import { MyMapComponent } from './TestMap'
+import { Italy } from './LeafletMap'
 
 import Footer from './Footer'
-import SelectProperty from './SelectProperty'
+import PropertyChooser from './PropertyChooser'
 import RegionInfo from './RegionInfo'
 
 
@@ -71,13 +66,13 @@ export default class Dashboard extends Component {
                 <div className="flex flex-wrap flex-col" >
 
 
-                    <SelectProperty setSelectedProperty={this.setSelectedProperty} />
+                    <PropertyChooser setSelectedProperty={this.setSelectedProperty} />
 
                     <div className="flex flex-wrap flex-row">
-{/* 
+                        {/* 
                         <ItalyMap selectedProperty={this.state.selectedProperty} setRegion={this.setRegion} />
                          */}
-                        <MyMapComponent geojson={this.state.geojson} selectedProperty={this.state.selectedProperty} setRegion={this.setRegion} />
+                        <Italy geojson={this.state.geojson} selectedProperty={this.state.selectedProperty} setRegion={this.setRegion} />
 
                         <RegionInfo region={this.state.region} />
                     </div>

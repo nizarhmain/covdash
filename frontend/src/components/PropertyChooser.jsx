@@ -1,65 +1,62 @@
-import React, { Component } from 'react'
-
-export default class PropertyChooser extends Component {
 
 
-    constructor(props) {
-        super(props)
+import React from 'react'
 
-        this.state = {
+import { Select } from 'antd';
 
-        }
-        this.changeProperty = this.changeProperty.bind(this)
+const { Option } = Select;
+
+
+
+export default function SelectProperty(props) {
+
+
+    function onChange(value) {
+        console.log(`selected ${value}`);
+        props.setSelectedProperty(value)
+    }
+
+    function onBlur() {
+        // console.log('blur');
+    }
+
+    function onFocus() {
+        // console.log('focus');
+    }
+
+    function onSearch(val) {
+        // console.log('search:', val);
     }
 
 
-    changeProperty() {
+    return (
+        <div className="mx-auto p-7 m-7 shadow-2xl rounded-lg">
 
-        console.log("this was clicked")
+            <Select
+                showSearch
+                size="large"
+                placeholder="Scegli un dato"
+                style={{ width: "300px" }}
+                optionFilterProp="children"
+                onChange={onChange}
+                onFocus={onFocus}
+                onBlur={onBlur}
+                onSearch={onSearch}
+                defaultValue="nuovi_positivi"
+            >
+                <Option value="casi_testati">Casi testati</Option>
+                <Option value="deceduti">Deceduti</Option>
+                <Option value="dimessi_guariti">Dimessi guariti</Option>
+                <Option value="nuovi_positivi">Nuovi Positivi</Option>
+                <Option value="tamponi">Tamponi</Option>
+                <Option value="tamponi_test_antigenico_rapido">Tamponi Rapidi</Option>
+                <Option value="tamponi_test_molecolare">Tamponi Test molecolari</Option>
+                <Option value="totale_casi">Casi totali</Option>
+                <Option value="totale_ospedalizzati">Totale ospedalizzati</Option>
+                <Option value="totale_positivi">Totale positivi</Option>
+                <Option value="variazione_totale_positivi">Variazione totale positivi</Option>
+            </Select>
+        </div>
 
-    }
-
-
-
-    render() {
-        return (
-            <div className="flex m-4 sm:m-4 md:m-8 flex-1 self-stretch flex-col justify-evenly items-center">
-
-
-                <button onClick={this.changeProperty} class="p-6 m-5 bg-gray-900 sm:m-7 md:m-1 w-full max-w-sm bg-white rounded-xl shadow-md ">
-                    <div class="text-xl font-medium text-white">Totale deceduti</div>
-                </button>
-
-
-                <button onClick={this.changeProperty} class="p-6 m-5 bg-red-400 sm:m-7 md:m-1 w-full max-w-sm bg-white rounded-xl shadow-md ">
-                    <div class="text-xl font-medium text-white">Totale positivi</div>
-                </button>
-
-
-                <button onClick={this.changeProperty} class="p-6 bg-purple-600  m-5 sm:m-7 md:m-1 w-full max-w-sm bg-white rounded-xl shadow-md ">
-                    <div class="text-xl font-medium text-white">Dimessi/guariti</div>
-                </button>
-
-
-                <button onClick={this.changeProperty} class="p-6 bg-green-500 m-5 sm:m-7 md:m-1 w-full max-w-sm  bg-white rounded-xl shadow-md">
-                    <div class="text-xl font-medium text-white">Tamponi</div>
-                </button>
-
-                <button onClick={this.changeProperty} class="p-6 bg-yellow-300 m-5 sm:m-7 md:m-1 w-full max-w-sm  bg-white rounded-xl shadow-md ">
-                    <div class="text-xl font-medium text-yellow-900">Casi testati</div>
-                </button>
-
-
-                <button onClick={this.changeProperty} class="p-6 bg-gray-300  m-5 sm:m-7 md:m-1 w-full max-w-sm  bg-white rounded-xl shadow-md ">
-                    <div class="text-xl font-medium text-gray-900">Totale casi</div>
-                </button>
-
-
-                <button onClick={this.changeProperty} class="p-6 m-5 bg-red-300 sm:m-7 md:m-1 w-full max-w-sm  bg-white rounded-xl shadow-md ">
-                    <div class="text-xl font-medium text-white">Ingressi in terapia</div>
-                </button>
-
-            </div>
-        )
-    }
+    )
 }

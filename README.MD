@@ -30,9 +30,6 @@ The intent of the project is to have a dashboard that would show a map of Italy 
 
 
 
-
-
-
 ## Architecture 
 
 <p align="center">

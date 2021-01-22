@@ -39,7 +39,7 @@ const outerBounds = [
     [36.61, 5.39],
 ]
 
-export function MyMapComponent(props) {
+export function Italy(props) {
 
     useEffect(() => {
         console.log(props)
