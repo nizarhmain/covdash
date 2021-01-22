@@ -8,6 +8,12 @@ const { Option } = Select;
 
 export default function RegionChooser(props) {
 
+    function checkIfRegionNotNull() {
+        if (props.region !== null) {
+            return props.region.alias
+        }
+    }
+
 
     function onChange(value) {
         console.log(value);
@@ -40,6 +46,7 @@ export default function RegionChooser(props) {
                 onFocus={onFocus}
                 onBlur={onBlur}
                 onSearch={onSearch}
+                value={ checkIfRegionNotNull() }
             >
                 <Option value="Abruzzo">Abruzzo</Option>
                 <Option value="Basilicata">Basilicata</Option>
