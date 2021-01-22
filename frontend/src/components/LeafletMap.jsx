@@ -11,8 +11,9 @@ function MyGeoJson(props) {
 
     function click(e, region) {
         console.log(e)
+        console.log(region)
         props.setRegion(region.properties)
-        map.fitBounds(e.layer._bounds);
+        // map.fitBounds(e.layer._bounds);
         console.log(e)
     }
 
@@ -71,38 +72,16 @@ function ResetViewButton() {
 
     return (
         <div class="leaflet-control ml-16 mt-5">
-            <Button onClick={ () => map.fitBounds(outerBounds)}>Ripristina</Button>
+            <Button onClick={() => map.fitBounds(outerBounds)}>
+                <div className="flex flex-row align-center justify-between">
+                    <svg height="20px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg> Ripristina </div>
+            </Button>
         </div>)
 
 }
 
-
-const outerBounds = [
-    [47.1330, 18.54],
-    [36.61, 5.9],
-]
-
-export function Italy(props) {
-
-    useEffect(() => {
-        console.log(props)
-    });
-    return (
-        <div id="italy_map" className="flex flex-1 m-5 md:m-16 sm:m-10 ">
-
-            <MapContainer bounds={outerBounds} doubleClickZoom={false} className="rounded-lg shadow-2xl" id="map_container" scrollWheelZoom={false}>
-                <TileLayer
-                    url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-                />
-
-                {props.geojson !== null && <MyGeoJson data={props.geojson} selectedProperty={props.selectedProperty} setRegion={props.setRegion} />}
-
-                <ResetViewButton />
-            </MapContainer>
-        </div>
-
-    )
-}
 
 
 
@@ -171,4 +150,37 @@ function findExtremes(regions, selectedProperty) {
     let min = Math.min.apply(Math, values);
     return { min: min, max: max }
 }
+
+
+const outerBounds = [
+    [47.1330, 18.54],
+    [36.61, 5.9],
+]
+
+
+// if we are using the phone, disable the phone scrolling
+
+export function Italy(props) {
+
+    useEffect(() => {
+        console.log(props)
+    });
+    return (
+        <div id="italy_map" className="flex flex-1 m-5 md:m-16 sm:m-10 ">
+
+            <MapContainer bounds={outerBounds} doubleClickZoom={false} className="rounded-lg shadow-2xl" id="map_container" scrollWheelZoom={true}>
+                <TileLayer
+                    url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                />
+
+                {props.geojson !== null && <MyGeoJson data={props.geojson} selectedProperty={props.selectedProperty} setRegion={props.setRegion} />}
+
+                <ResetViewButton />
+            </MapContainer>
+        </div>
+
+    )
+}
+
+
 
