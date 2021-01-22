@@ -49,12 +49,28 @@ The intent of the project is to have a dashboard that would show a map of Italy 
   - react-leaflet for map
 
 ### Features :
-
 - showing a map of italy, with each regions and the stats (using leaflet with mapbox for colors)
 - charts about the data using (using nivo rocks or something similar)
 - dark theme react using react context api
 - add the instructions for each region and zone color in own custom part
 - maybe if we have enough time add google analytics to the project
+
+
+### Components breakdown
+
+for now this is what we want to have
+1 class component the rest is stateless
+<App /> is at the highest level
+
+<Dashboard /> stateful, selectedProperty (filter: deceduti, morti, ...) selectedRegion (Lazio, Piemonte ...) and fetchs the region data when it mounts (class component)
+    - <PropertyChooser /> stateless, sets a state of the selectedProperty. (functional component)
+    - <Italy /> stateless, contains a map of italy. (must use hooks, because of the library)
+    - <PropertyList /> stateless, shows the properties
+        - <Property /> stateless
+    - <Graph /> stateless shows the graph, is not affected by selectedRegion, only by selectedProperty
+    - <DarkModeToggler /> toggles between dark mode
+
+
 
 ### Backend part (mostly scraping):
 
