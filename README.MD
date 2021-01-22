@@ -3,29 +3,63 @@
 ## Project Description
 
 <p align="center">
-  <img src="logo.png" width="30%" />
+  <img src="diagrams/logo.png" width="30%" />
 </p>
 
 The intent of the project is to have a dashboard that would show a map of Italy as well as other data regarding the covid pandemic.
+
+
+## Final product goal / design prototype
+
+
+
+<p align="center">
+  <img src="diagrams/mobile.png" width="100%" />
+</p>
+
+
+<p align="center">
+  <img src="diagrams/tablet.png" width="100%" />
+</p>
+
+
+<p align="center">
+  <img src="diagrams/desktop.png" width="100%" />
+</p>
+
+
+
+
 
 
 
 ## Architecture 
 
 <p align="center">
-  <img src="covdash.png" width="100%" />
+  <img src="diagrams/covdash.png" width="100%" />
 </p>
 
 
 
 ### Frontend part:
+
+### Libraries used :
+  - tailwind css
+  - antd
+  - react-leaflet for map
+
+### Features :
+
 - showing a map of italy, with each regions and the stats (using leaflet with mapbox for colors)
 - charts about the data using (using nivo rocks or something similar)
 - dark theme react using react context api
 - add the instructions for each region and zone color in own custom part
-- add google analytics to the project
+- maybe if we have enough time add google analytics to the project
 
 ### Backend part (mostly scraping):
+
+- depending on the scraper, see if it's easier in python
+
 - scrape the stats from the covid repo data  
 - once it is scraped, save to our elasticsearch node that goes through a server written in dotnet core
 - convert csv files into geojson files. 
