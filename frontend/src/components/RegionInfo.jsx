@@ -9,10 +9,10 @@ export default function RegionInfo(props) {
 
     function renderRegion(key, value, icon) {
         return (
-            <div className=" flex flex-col items-center m-5 sm:m-7 md:m-1 w-full max-w-sm bg-white rounded-xl shadow-md ">
+            <div className=" flex flex-row justify-around items-center m-3 sm:m-7 md:m-1 w-full max-w-sm bg-white rounded-xl shadow-md ">
 
                 <div>
-                    <img className="svg" height="50px" src={icon} />
+                    <img className="svg" src={icon} />
                 </div>
                 <div>
                     <p>  {key} </p>
