@@ -69,11 +69,7 @@ export default class Dashboard extends Component {
                     <PropertyChooser setSelectedProperty={this.setSelectedProperty} />
 
                     <div className="flex flex-wrap flex-row">
-                        {/* 
-                        <ItalyMap selectedProperty={this.state.selectedProperty} setRegion={this.setRegion} />
-                         */}
                         <Italy geojson={this.state.geojson} selectedProperty={this.state.selectedProperty} setRegion={this.setRegion} />
-
                         <RegionInfo region={this.state.region} />
                     </div>
 
