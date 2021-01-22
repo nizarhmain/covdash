@@ -1,21 +1,23 @@
 
-
-
 import React, { useState, useEffect } from 'react'
 import { MapContainer, TileLayer, useMapEvents, useMap, GeoJSON } from 'react-leaflet'
+
 
 
 function MyGeoJson(props) {
 
     const map = useMap()
-
+    let extremes = findExtremes(props.data.features, props.selectedProperty)
 
     return props.data.features.map(region => {
 
         // figure out highs and lows here
         // depending on the properties selected we have to figure out a different style
         // pass the information of all the properties and the one we want to filter
+        let custom_style = styleColorHandler(region.properties, props.selectedProperty, extremes);
         return <GeoJSON
+            key={props.selectedProperty + region.properties.reg_istat_code_num}
+            style={custom_style}
             attribution="Italian regions"
             data={region}
             eventHandlers={{
@@ -32,13 +34,12 @@ function MyGeoJson(props) {
 
 }
 
-// italian bounds
 const outerBounds = [
     [47.1770, 20.1796],
     [36.61, 5.39],
 ]
 
-export function Italy(props) {
+export function MyMapComponent(props) {
 
     useEffect(() => {
         console.log(props)
@@ -52,6 +53,7 @@ export function Italy(props) {
                     url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
                 />
 
+                {props.geojson !== null && <MyGeoJson data={props.geojson} selectedProperty={props.selectedProperty} />}
 
             </MapContainer>
         </div>

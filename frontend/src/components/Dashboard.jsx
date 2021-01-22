@@ -1,35 +1,41 @@
 import React, { Component } from 'react'
+import MyRadial from './RadialChart'
+import ItalyMap from './ItalyMap'
+import PropertyChooser from './PropertyChooser'
+import SimplePlot from './SimplePlot'
+
 import axios from 'axios'
 
-import { Italy } from './Italy'
+import { MyMapComponent } from './TestMap'
+
+import Footer from './Footer'
+import SelectProperty from './SelectProperty'
+import RegionInfo from './RegionInfo'
+
 
 export default class Dashboard extends Component {
-
-
-    // for the logo to be inverted, check if the html tag contains the tag dark
-    // then apply filter: invert(1) accordingly
 
     constructor(props) {
         super(props)
 
         this.state = {
+            region: '',
+            selectedProperty: 'deceduti',
             geojson: null
         }
 
+        this.setSelectedProperty = this.setSelectedProperty.bind(this)
+        this.setRegion = this.setRegion.bind(this)
     }
 
     componentDidMount() {
-        console.log('dashboard mounted')
         this.getRegions()
     }
 
     async getRegions() {
-        console.log('fetching regions')
         // Make a request for a user with a given ID
-        // replace this with the real backend
-        axios.get("regions.json")
+        axios.get("http://localhost:5000/latest")
             .then((response) => {
-                console.log(response.data)
                 // console.log(response.data);
                 // could simplify the code but leaving it like this for clarity
                 this.setState({ geojson: response.data })
@@ -45,29 +51,41 @@ export default class Dashboard extends Component {
     }
 
 
+    setSelectedProperty(selectedProperty) {
+        this.setState({ selectedProperty })
+    }
+
+
+    setRegion(region) {
+        this.setState({ region })
+    }
+
+
     render() {
         return (
             <div className="md:container md:mx-auto">
-                <div className="flex justify-center ml-8 mr-8 mb-8">
+                <div className="flex justify-center m-8">
                     <img style={{ height: "100px" }} src="./logo.png" />
                 </div>
 
-
-
-
                 <div className="flex flex-wrap flex-col" >
 
-                    <p> hey there test </p>
+
+                    <SelectProperty setSelectedProperty={this.setSelectedProperty} />
 
                     <div className="flex flex-wrap flex-row">
-                        <Italy geojson={this.state.geojson} />
+{/* 
+                        <ItalyMap selectedProperty={this.state.selectedProperty} setRegion={this.setRegion} />
+                         */}
+                        <MyMapComponent geojson={this.state.geojson} selectedProperty={this.state.selectedProperty} setRegion={this.setRegion} />
 
-
-                    <p> hey there test </p>
+                        <RegionInfo region={this.state.region} />
                     </div>
 
-                </div>
 
+                    <Footer />
+
+                </div>
 
             </div>
         )
