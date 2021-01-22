@@ -125,7 +125,9 @@ function positiveOrNegative(property) {
 function styleColorHandler(properties, property, extremes) {
     let key = properties[property]
 
+    // calculate opacity
     let opacity = (key * 0.8 / extremes.max)
+
     return {
         weight: 0,
         opacity: 1,
@@ -168,7 +170,7 @@ export function Italy(props) {
     return (
         <div id="italy_map" className="flex flex-1 m-5 md:m-16 sm:m-10 ">
 
-            <MapContainer bounds={outerBounds} doubleClickZoom={false} className="rounded-lg shadow-2xl" id="map_container" scrollWheelZoom={true}>
+            <MapContainer maxBounds={outerBounds} bounds={outerBounds} doubleClickZoom={false} className="rounded-lg shadow-2xl" id="map_container" scrollWheelZoom={true}>
                 <TileLayer
                     url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
                 />

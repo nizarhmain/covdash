@@ -31,8 +31,8 @@ export default function RegionInfo(props) {
     if (!props.region) {
         return (
             <div className="flex m-4 sm:m-4 md:m-8 flex-1 self-stretch flex-col justify-evenly items-center">
-                <div className="p-6 m-5 sm:m-7 md:m-1 w-full max-w-sm bg-white rounded-xl shadow-md ">
-                    <p>Clicca su una regione</p>
+                <div className="p-6 m-5 sm:m-7 md:m-1 w-full max-w-sm bg-white">
+                    <p className="text-lg"> Seleziona o clicca su una regione</p>
                 </div>
 
             </div >

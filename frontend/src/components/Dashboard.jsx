@@ -6,6 +6,7 @@ import { Italy } from './LeafletMap'
 import Footer from './Footer'
 import PropertyChooser from './PropertyChooser'
 import RegionInfo from './RegionInfo'
+import RegionChooser from './RegionChooser'
 
 
 export default class Dashboard extends Component {
@@ -14,13 +15,14 @@ export default class Dashboard extends Component {
         super(props)
 
         this.state = {
-            region: '',
+            region: null,
             selectedProperty: 'deceduti',
             geojson: null
         }
 
         this.setSelectedProperty = this.setSelectedProperty.bind(this)
         this.setRegion = this.setRegion.bind(this)
+        this.setRegionFromAlias = this.setRegionFromAlias.bind(this)
     }
 
     componentDidMount() {
@@ -56,6 +58,15 @@ export default class Dashboard extends Component {
     }
 
 
+    setRegionFromAlias(alias) {
+        this.state.geojson.features.forEach(region => {
+            if (region.properties.alias === alias) {
+                this.setState({ region: region.properties })
+            }
+        });
+    }
+
+
     render() {
         return (
             <div className="md:container md:mx-auto">
@@ -66,11 +77,18 @@ export default class Dashboard extends Component {
                 <div className="flex flex-wrap flex-col" >
 
 
-                    <PropertyChooser setSelectedProperty={this.setSelectedProperty} />
 
-                    <div className="flex flex-wrap flex-row">
-                        <Italy geojson={this.state.geojson} selectedProperty={this.state.selectedProperty} setRegion={this.setRegion} />
-                        <RegionInfo region={this.state.region} />
+                    <div className="flex flex-wrap justify-evenly flex-row ">
+
+                        <div className="flex-1 flex-col ">
+                            <PropertyChooser setSelectedProperty={this.setSelectedProperty} />
+                            <Italy geojson={this.state.geojson} selectedProperty={this.state.selectedProperty} setRegion={this.setRegion} />
+                        </div>
+
+                        <div className="flex-2 flex-col">
+                            <RegionChooser region={this.state.region} setRegionFromAlias={this.setRegionFromAlias} />
+                            <RegionInfo region={this.state.region} />
+                        </div>
                     </div>
 
 

@@ -8,7 +8,7 @@ const { Option } = Select;
 
 
 
-export default function SelectProperty(props) {
+export default function PropertyChooser(props) {
 
 
     function onChange(value) {
@@ -30,7 +30,7 @@ export default function SelectProperty(props) {
 
 
     return (
-        <div className="mx-auto p-7 m-7 shadow-2xl rounded-lg">
+        <div className="flex mx-auto p-7 m-7 justify-center">
 
             <Select
                 showSearch
