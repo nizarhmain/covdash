@@ -22,6 +22,8 @@ function MyGeoJson(props) {
             data={region}
             eventHandlers={{
                 click: (e) => {
+
+                    props.setRegion(region.properties)
                     // map.fitBounds(innerBounds)
                     map.fitBounds(e.layer._bounds);
                     // select first key of the object
@@ -53,7 +55,7 @@ export function Italy(props) {
                     url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
                 />
 
-                {props.geojson !== null && <MyGeoJson data={props.geojson} selectedProperty={props.selectedProperty} />}
+                {props.geojson !== null && <MyGeoJson data={props.geojson} selectedProperty={props.selectedProperty} setRegion={props.setRegion} />}
 
             </MapContainer>
         </div>
