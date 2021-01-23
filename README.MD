@@ -9,6 +9,16 @@
 The intent of the project is to have a dashboard that would show a map of Italy as well as other data regarding the covid pandemic.
 
 
+## Current state of the project
+
+
+<p align="center">
+  <img src="diagrams/current_state.png" width="80%" />
+</p>
+
+
+
+
 ## Final product goal / design prototype
 
 
