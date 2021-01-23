@@ -4,11 +4,11 @@ import React from 'react'
 import { GeoJSON } from 'react-leaflet'
 
 
-export default function MyGeojson( { data, selectedProperty, setRegion } ) {
+export default function MyGeojson({ data, selectedProperty, setRegion }) {
 
     //########################################################################################
 
-    const click = (e, region) => { setRegion(region.properties)}
+    const click = (e, region) => { setRegion(region.properties) }
 
 
     function resetHighlight(e) {
@@ -50,47 +50,6 @@ export default function MyGeojson( { data, selectedProperty, setRegion } ) {
 
     }
 
-    function findExtremes(regions, selectedProperty) {
-        // console.log(regions)
-        // console.log(selectedProperty)
-        let values = []
-
-        regions.forEach(region => {
-            values.push(region.properties[selectedProperty])
-        });
-
-        let max = Math.max.apply(Math, values);
-        let min = Math.min.apply(Math, values);
-        return { min: min, max: max }
-    }
-
-
-
-    // the properties are the values
-    // the property is the one we are filtering on 
-    // the extremes are the highest and lowest values
-
-    function positiveOrNegative(property) {
-        switch (property) {
-            case "casi_testati":
-                return 'green'
-
-            case "dimessi_guariti":
-                return 'green'
-
-            case "tamponi":
-                return 'green'
-
-            case "tamponi_test_antigenico_rapido":
-                return 'green'
-
-            case "tamponi_test_molecolare":
-                return 'green'
-            default:
-                return 'red'
-        }
-
-    }
 
 
 
@@ -118,3 +77,49 @@ export default function MyGeojson( { data, selectedProperty, setRegion } ) {
 
 
 }
+
+
+export function findExtremes(regions, selectedProperty) {
+    // console.log(regions)
+    // console.log(selectedProperty)
+    let values = []
+
+    regions.forEach(region => {
+        values.push(region.properties[selectedProperty])
+    });
+
+    let max = Math.max.apply(Math, values);
+    let min = Math.min.apply(Math, values);
+    return { min: min, max: max }
+}
+
+
+// the properties are the values
+// the property is the one we are filtering on 
+// the extremes are the highest and lowest values
+
+export function positiveOrNegative(property) {
+    switch (property) {
+        case "casi_testati":
+            return 'green'
+
+        case "dimessi_guariti":
+            return 'green'
+
+        case "tamponi":
+            return 'green'
+
+        case "tamponi_test_antigenico_rapido":
+            return 'green'
+
+        case "tamponi_test_molecolare":
+            return 'green'
+        default:
+            return 'red'
+    }
+
+}
+
+
+
+
