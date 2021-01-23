@@ -1,6 +1,10 @@
 
 
 import React from 'react'
+import AnimatedNumber from "animated-number-react";
+
+
+
 
 export default function RegionInfo(props) {
     function numberWithCommas(x) {
@@ -8,19 +12,25 @@ export default function RegionInfo(props) {
     }
 
     // gets the icon for the region
-    const findIcon = (region_alias) => { return <img className="rounded-lg shadow-2xl region_flag" height="200px" src={`region_icons/${region_alias.replace('/', '_')}.svg`} /> }
+    const findIcon = (region_alias) => { return <img alt="region_icon" className="rounded-lg shadow-2xl region_flag" height="200px" src={`region_icons/${region_alias.replace('/', '_')}.svg`} /> }
 
+    const formatValue = (value) => numberWithCommas(value.toFixed(0));
 
     function renderRegion(key, value, icon) {
         return (
-            <div className=" flex flex-row justify-around items-center m-3 sm:m-7 md:m-1 w-full max-w-sm bg-white rounded-xl shadow-md ">
+            <div className=" flex flex-row justify-around items-center m-3 sm:m-7 md:m-1 w-full max-w-sm bg-white rounded-xl shadow-md">
 
                 <div>
-                    <img className="svg" src={icon} />
+                    <img alt="region_icon" className="svg" src={icon} />
                 </div>
                 <div>
                     <p>  {key} </p>
-                    <p className="text-3xl text-center"> {numberWithCommas(value)} </p>
+                    <p className="text-3xl text-center">
+                        <AnimatedNumber
+                            value={value}
+                            formatValue={formatValue}
+                        />
+                         </p>
                 </div>
 
             </div>)
@@ -51,25 +61,5 @@ export default function RegionInfo(props) {
             </div >
         )
     }
-
-
-    function regionCards() {
-
-        const listItems = Object.entries(props.region).map((element) =>
-
-            // replace the _ with spaces
-            // casi_testati => casi testati
-
-            <div key={element[0]} className="p-6 m-5 sm:m-7 md:m-1 w-full max-w-sm bg-white rounded-xl shadow-md ">
-                <p>{element[0].replace("_", " ")} : {element[1]}</p>
-            </div>
-        );
-
-        return listItems;
-
-
-
-    }
-
 
 }

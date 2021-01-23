@@ -8,12 +8,12 @@ const { Option } = Select;
 
 
 
-export default function PropertyChooser(props) {
+export default function PropertyChooser( {setSelectedProperty} ) {
 
 
     function onChange(value) {
         console.log(`selected ${value}`);
-        props.setSelectedProperty(value)
+        setSelectedProperty(value)
     }
 
     function onBlur() {

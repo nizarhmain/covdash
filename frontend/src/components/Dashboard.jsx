@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-import { Italy } from './LeafletMap'
+import { Italy } from './Map/LeafletMap'
 
 import Footer from './Footer'
 import PropertyChooser from './PropertyChooser'
@@ -71,7 +71,7 @@ export default class Dashboard extends Component {
         return (
             <div className="md:container md:mx-auto">
                 <div className="flex justify-center m-8">
-                    <img style={{ height: "100px" }} src="./logo.png" />
+                    <img alt="logo" style={{ height: "100px" }} src="./logo.png" />
                 </div>
 
                 <div className="flex flex-wrap flex-col" >

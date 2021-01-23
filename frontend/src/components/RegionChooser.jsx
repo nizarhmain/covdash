@@ -6,18 +6,17 @@ import { Select } from 'antd';
 const { Option } = Select;
 
 
-export default function RegionChooser(props) {
+export default function RegionChooser( {region, setRegionFromAlias } ) {
 
     function checkIfRegionNotNull() {
-        if (props.region !== null) {
-            return props.region.alias
+        if (region !== null) {
+            return region.alias
         }
     }
 
-
     function onChange(value) {
         console.log(value);
-        props.setRegionFromAlias(value)
+        setRegionFromAlias(value)
     }
 
     function onBlur() {
