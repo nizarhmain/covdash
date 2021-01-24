@@ -10,30 +10,36 @@ import ssl
 import os
 import psutil
 
+from progress.bar import Bar
 
+# otherwise download the file from github creates issues
 ssl._create_default_https_context = ssl._create_unverified_context
 
 
-def checkDiskSpace():
+def enoughDiskSpace(csvs):
+
     hdd = psutil.disk_usage('/')
-    return hdd.free
+
+    # each csv is approx 2kb in size
+    if hdd.free < csvs**3:
+        print("not enough space, make some room for the data")
+        exit(1)
 
 
 # check if there is enough space on the disk first
-checkDiskSpace()
 
 
 # download file to the csv folder
 def download_file(url, filename):
-    print(url)
-    print(filename)
+    # print(url)
+    # print(filename)
 
     # check if file already exists
     if (os.path.isfile(f'csv/{filename}') == False):
-        print("does not exist yet")
+        # print("does not exist yet")
         urllib.request.urlretrieve(url, f'csv/{filename}')
-    else:
-        print("dont download it")
+
+    # other wise dont download it
 
 
 g = Github()
@@ -41,18 +47,16 @@ g = Github()
 repo = g.get_repo("pcm-dpc/COVID-19")
 contents = repo.get_contents("dati-regioni")
 
-# each csv is approx 2kb in size
-print(len(contents))
+enoughDiskSpace(len(contents))
 
-if (checkDiskSpace() > len(contents)**3):
-    print("there is enough space")
+print("there is enough space")
+bar = Bar('Downloading', max=len(contents))
 
-    for content_file in contents:
-        # print(content_file.download_url)
-        # the size is in kb
-        # print(content_file.size)
-        download_file(content_file.download_url, content_file.name)
+for content_file in contents:
+    # print(content_file.download_url)
+    # the size is in kb
+    # print(content_file.size)
+    bar.next()
+    download_file(content_file.download_url, content_file.name)
 
-else:
-    # exit the program here
-    print("there is not enough space")
+bar.finish()
