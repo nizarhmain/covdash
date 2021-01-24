@@ -82,6 +82,21 @@ for now this is what we want to have
 ### Backend part (mostly scraping):
 
 
+In order to start the scraping
+
+```
+# run tests
+pytest -s
+
+# running the program
+python3 -m crawling.crawling_script
+
+```
+
+
+this will create a new folder called `data` with the `csv` and `geojson` subfolders inside of it
+
+
 ```
 
 . /venv/bin/activate
@@ -89,6 +104,7 @@ for now this is what we want to have
 flask run
 
 ```
+
 
 run tests from backend folder
 
