@@ -8,7 +8,7 @@ import PropertyChooser from './PropertyChooser'
 import RegionInfo from './RegionInfo'
 import RegionChooser from './RegionChooser'
 
-import { MyResponsiveBar } from './Bar'
+import { MyResponsiveBar } from './Graphs/Bar'
 
 import { positiveOrNegative, findExtremes } from './Map/Geojson'
 
@@ -20,7 +20,8 @@ export default class Dashboard extends Component {
         this.state = {
             region: null,
             selectedProperty: 'deceduti',
-            geojson: null
+            geojson: null,
+            lastUpdate: ''
         }
 
         this.setSelectedProperty = this.setSelectedProperty.bind(this)
@@ -39,7 +40,8 @@ export default class Dashboard extends Component {
             .then((response) => {
                 // console.log(response.data);
                 // could simplify the code but leaving it like this for clarity
-                this.setState({ geojson: response.data })
+                // set the lastUpdate date 
+                this.setState({ geojson: response.data, lastUpdate: response.data.features[0].properties.data})
                 // handle success
             })
             .catch((error) => {
@@ -58,6 +60,7 @@ export default class Dashboard extends Component {
 
 
     setRegion(region) {
+        console.log(region)
         this.setState({ region })
     }
 
@@ -117,6 +120,11 @@ export default class Dashboard extends Component {
 
                 <div className="flex justify-center m-8">
                     <img alt="logo" style={{ height: "100px" }} src="./logo.png" />
+
+                </div>
+
+                <div className="flex justify-center mt-8">
+                    <p> Ultimo aggiornamento il {new Date(this.state.lastUpdate).toLocaleString('it-IT') } </p>
                 </div>
 
                 <div className="flex flex-wrap flex-col" >
@@ -136,7 +144,7 @@ export default class Dashboard extends Component {
                     </div>
                 </div>
 
-                <div className="flex flex-wrap justify-center flex-row graph_container">
+                <div className="flex flex-wrap justify-center flex-row graph_container mx-auto">
                     <PropertyChooser setSelectedProperty={this.setSelectedProperty} />
                     {this.prepareDateForNivoBar()}
                     <Footer />
