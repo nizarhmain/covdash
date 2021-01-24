@@ -4,11 +4,11 @@ import React from 'react'
 import { GeoJSON } from 'react-leaflet'
 
 
-export default function MyGeojson({ data, selectedProperty, setRegion }) {
+export default function MyGeojson({ data, selectedProperty, setRegionFromAlias }) {
 
     //########################################################################################
 
-    const click = (e, region) => { setRegion(region.properties) }
+    const click = (e, region) => { setRegionFromAlias(region.properties.alias)}
 
 
     function resetHighlight(e) {
@@ -64,7 +64,7 @@ export default function MyGeojson({ data, selectedProperty, setRegion }) {
         // pass the information of all the properties and the one we want to filter
         let custom_style = styleColorHandler(region.properties, selectedProperty, extremes);
         return <GeoJSON
-            key={selectedProperty + region.properties.reg_istat_code_num}
+            key={selectedProperty + region.properties.reg_istat_code_num + region.properties.nuovi_positivi}
             style={custom_style}
             data={region}
             eventHandlers={{

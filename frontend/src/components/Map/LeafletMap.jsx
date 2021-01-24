@@ -27,7 +27,7 @@ export function Italy(props) {
                     url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
                 />
 
-                {props.geojson !== null && <MyGeojson data={props.geojson} selectedProperty={props.selectedProperty} setRegion={props.setRegion} />}
+                {props.geojson !== null && <MyGeojson data={props.geojson} selectedProperty={props.selectedProperty} setRegionFromAlias={props.setRegionFromAlias} />}
 
                 <ResetViewButton />
             </MapContainer>

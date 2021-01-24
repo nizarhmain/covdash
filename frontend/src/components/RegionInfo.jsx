@@ -6,7 +6,7 @@ import AnimatedNumber from "animated-number-react";
 
 
 
-export default function RegionInfo(props) {
+export default function RegionInfo({ region, lastUpdate }) {
     function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
@@ -17,6 +17,7 @@ export default function RegionInfo(props) {
     const formatValue = (value) => numberWithCommas(value.toFixed(0));
 
     function renderRegion(key, value, icon) {
+
         return (
             <div className=" flex flex-row justify-around items-center m-3 sm:m-7 md:m-1 w-full max-w-sm bg-white rounded-xl shadow-md">
 
@@ -25,20 +26,23 @@ export default function RegionInfo(props) {
                 </div>
                 <div>
                     <p>  {key} </p>
+
+
                     <p className="text-3xl text-center">
                         <AnimatedNumber
                             value={value}
                             formatValue={formatValue}
                         />
-                         </p>
+                    </p>
+
                 </div>
 
             </div>)
     }
 
-    // console.log(props.region)
+    // console.log(region)
 
-    if (!props.region) {
+    if (!region) {
         return (
             <div className="flex m-4 sm:m-4 md:m-8 flex-1 self-stretch flex-col justify-evenly items-center">
                 <div className="p-6 m-5 sm:m-7 md:m-1 w-full max-w-sm bg-white">
@@ -50,14 +54,13 @@ export default function RegionInfo(props) {
     } else {
         return (
             <div className="flex m-4 sm:m-4 md:m-8 flex-1 self-stretch flex-col justify-evenly items-center">
-                <div className="flex flex-col items-center text-lg"> {findIcon(props.region.alias)} {props.region.alias}</div>
-                {renderRegion('Nuovi Positivi', props.region.nuovi_positivi, "blood-test.svg")}
-                {renderRegion('Tamponi Effetuati', props.region.tamponi, "swab.svg")}
-                {renderRegion('Positivi Totali', props.region.totale_positivi, "sick.svg")}
-                {renderRegion('Terapia intensiva', props.region.terapia_intensiva, "patient.svg")}
-                {renderRegion('Dimessi guariti', props.region.dimessi_guariti, "heart.svg")}
-                {renderRegion('Deceduti', props.region.deceduti, "human-skull.svg")}
-
+                <div className="flex flex-col items-center text-lg"> {findIcon(region.alias)} {region.alias}</div>
+                {renderRegion('Nuovi Positivi', region.nuovi_positivi, "blood-test.svg")}
+                {renderRegion('Tamponi Effetuati', region.tamponi, "swab.svg")}
+                {renderRegion('Positivi Totali', region.totale_positivi, "sick.svg")}
+                {renderRegion('Terapia intensiva', region.terapia_intensiva, "patient.svg")}
+                {renderRegion('Dimessi guariti', region.dimessi_guariti, "heart.svg")}
+                {renderRegion('Deceduti', region.deceduti, "human-skull.svg")}
             </div >
         )
     }

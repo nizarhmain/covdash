@@ -12,6 +12,12 @@ import { MyResponsiveBar } from './Graphs/Bar'
 
 import { positiveOrNegative, findExtremes } from './Map/Geojson'
 
+import { DatePicker, Space } from 'antd';
+
+import moment from 'moment'
+
+
+
 export default class Dashboard extends Component {
 
     constructor(props) {
@@ -25,25 +31,38 @@ export default class Dashboard extends Component {
         }
 
         this.setSelectedProperty = this.setSelectedProperty.bind(this)
-        this.setRegion = this.setRegion.bind(this)
         this.setRegionFromAlias = this.setRegionFromAlias.bind(this)
         this.prepareDateForNivoBar = this.prepareDateForNivoBar.bind(this)
+        this.onChange = this.onChange.bind(this)
+        this.disabledDate = this.disabledDate.bind(this)
     }
 
     componentDidMount() {
-        this.getRegions()
+        this.getRegions("http://localhost:5000/latest")
+        // this.getRegions("http://localhost:5000/geojson?date=20200316")
     }
 
-    async getRegions() {
+    async getRegions(url) {
         // Make a request for a user with a given ID
-        const url = "http://localhost:5000/geojson?date=20200324"
         // const url = "http://localhost:5000/latest"
-        axios.get(url)
+        return axios.get(url)
             .then((response) => {
+                console.log(response)
                 // console.log(response.data);
                 // could simplify the code but leaving it like this for clarity
                 // set the lastUpdate date 
-                this.setState({ geojson: response.data, lastUpdate: response.data.features[0].properties.data})
+                //select a random region every time
+
+                // first load
+                if (!this.state.region) {
+                    // create a random index
+                    const random_region_index = Math.floor(Math.random() * response.data.features.length);
+                    // select a random region
+                    const random_region = response.data.features[random_region_index].properties
+                    this.setState({ region: random_region })
+                }
+
+                this.setState({ geojson: response.data, lastUpdate: response.data.features[0].properties.data })
                 // handle success
             })
             .catch((error) => {
@@ -58,12 +77,6 @@ export default class Dashboard extends Component {
 
     setSelectedProperty(selectedProperty) {
         this.setState({ selectedProperty })
-    }
-
-
-    setRegion(region) {
-        console.log(region)
-        this.setState({ region })
     }
 
 
@@ -84,13 +97,39 @@ export default class Dashboard extends Component {
 
         let green_or_red = ''
 
-        if(type === 'green') {
+        if (type === 'green') {
             green_or_red = '114'
         } else {
             green_or_red = '0'
         }
 
         return `hsl(${green_or_red}, 50%, ${inverted}%)`
+    }
+
+    onChange(date, dateString) {
+        // this only happens if this.state.region is not empty
+
+        // setRegoinFromAlias is triggered from LeafletMap -> GeoJson triggers it
+        // we then remember the name of the region that was selected
+        // then we reset it from when it was set
+
+        // forcing the rerender of the region information
+        const new_date = dateString.replace(/-/g, '')
+        const url = `http://localhost:5000/geojson?date=${new_date}`
+        this.getRegions(url).then(() => {
+            console.log(this.state.region.alias)
+            console.log(this.state.region.nuovi_positivi)
+            const current_alias = this.state.region.alias
+            console.log(current_alias)
+            this.setRegionFromAlias(current_alias)
+        })
+
+    }
+
+    disabledDate(current) {
+        // Can not select days before today and today
+        // return current && current < moment().endOf('day');
+        return current < moment("20200301", "YYYYMMDD") || current > moment().endOf('day');
     }
 
 
@@ -125,8 +164,14 @@ export default class Dashboard extends Component {
 
                 </div>
 
-                <div className="flex justify-center mt-8">
-                    <p> Ultimo aggiornamento il {new Date(this.state.lastUpdate).toLocaleString('it-IT') } </p>
+
+
+                <div className="flex flex-col items-center mx-auto m-8">
+                    <p> Ultimo aggiornamento il {new Date(this.state.lastUpdate).toLocaleString('it-IT')} </p>
+                    <div>
+                        <DatePicker disabledDate={this.disabledDate}
+                            onChange={this.onChange} defaultValue={moment()} />
+                    </div>
                 </div>
 
                 <div className="flex flex-wrap flex-col" >
@@ -135,12 +180,12 @@ export default class Dashboard extends Component {
 
                         <div className="flex-1 flex-col ">
                             <PropertyChooser setSelectedProperty={this.setSelectedProperty} />
-                            <Italy geojson={this.state.geojson} selectedProperty={this.state.selectedProperty} setRegion={this.setRegion} />
+                            <Italy geojson={this.state.geojson} selectedProperty={this.state.selectedProperty} setRegionFromAlias={this.setRegionFromAlias} />
                         </div>
 
                         <div className="flex-2 flex-col">
                             <RegionChooser region={this.state.region} setRegionFromAlias={this.setRegionFromAlias} />
-                            <RegionInfo region={this.state.region} />
+                            <RegionInfo region={this.state.region} lastUpdate={this.state.lastUpdate} />
 
                         </div>
                     </div>
