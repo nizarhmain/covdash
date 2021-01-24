@@ -11,6 +11,7 @@
 import json
 import csv
 import collections
+import os
 
 # This is used for the provinces that have different names
 # Valle d'Aosta/Vallée d'Aoste in json
@@ -26,15 +27,15 @@ import collections
 
 # add a try catch if we can't read from the file
 
+
+from progress.bar import Bar
+
 class Parser:
 
     # costruttore della classe
-    def __init__(self, csv_file, geojson_file):
+    def __init__(self):
 
         # User arguments
-        self.csv_file = csv_file
-        self.geojson_file = geojson_file
-
         self.json_list = []
         self.csv_name_list = []
         self.merged_values = []
@@ -75,10 +76,10 @@ class Parser:
 
 ########################################################################################
 
-    def readingCsv(self):
+    def readingCsv(self, csv_file):
 
         try:
-            with open(self.csv_file, 'r') as file:
+            with open(f'csv/{csv_file}', 'r') as file:
 
                 # skipping the first row, since we don't need it
                 reader = csv.reader(file)
@@ -103,7 +104,7 @@ class Parser:
 
         except FileNotFoundError:
             print(
-                f' the file was not found in the path {self.csv_file}, check the path again ')
+                f' the file was not found in the path csv/{csv_file}, check the path again ')
 
  ########################################################################################
 
@@ -131,17 +132,20 @@ class Parser:
 
 ## THIS IS THE MAIN FUNCTION, run this to parse
 
-    def parse(self):
-        self.readingCsv()
-        self.modifyGeojson()
+    def parse(self, csv_file):
+        if (os.path.isfile(f'geojson/{csv_file}.json') == False):
+            self.readingCsv(csv_file)
+            self.modifyGeojson(csv_file)
 
 
 ########################################################################################
 
 
-    def modifyGeojson(self):
+    def modifyGeojson(self, csv_file):
 
-        with open(self.geojson_file) as json_file:
+        # print(csv_file)
+
+        with open('./regions.json') as json_file:
             data = json.load(json_file)
             x = 0
             for f in data['features']:
@@ -166,10 +170,14 @@ class Parser:
 
                                     # only sum if it's a number not a string
                                     if (isinstance(f['properties'][field], float)):
+
+                                        # print(f['properties'][field])
+                                        # print(field)
+
                                         f['properties'][field] = f['properties'][field] + \
                                             converted_value
-                                        print(field)
-                                        print(f['properties'][field])
+                                        # print(field)
+                                        # print(f['properties'][field])
 
                                 except KeyError:
                                     f['properties'][field] = converted_value
@@ -178,7 +186,7 @@ class Parser:
                                 f['properties'][field] = converted_value
 
                 # Save our changes to JSON file
-            jsonFile = open("replayScript.json", "w+")
+            jsonFile = open(f"./geojson/{csv_file}.json", "w+")
             jsonFile.write(json.dumps(data))
             jsonFile.close()
 
@@ -190,7 +198,6 @@ class Parser:
         # print(merged_values)
 
 
-p = Parser('./csvsasas/dpc-covid19-ita-regioni-20210119.csv',
-           './geojson/regions.json')
 
-p.parse()
+# for every file in csv folder, generate a new json 
+
