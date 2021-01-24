@@ -30,6 +30,7 @@ import os
 
 from progress.bar import Bar
 
+
 class Parser:
 
     # costruttore della classe
@@ -58,8 +59,8 @@ class Parser:
 
 ########################################################################################
 
-
     def getInfoFromCsv(self, row):
+
         # take the row name
         name = self.handleName(row[3])
 
@@ -75,6 +76,7 @@ class Parser:
 
 
 ########################################################################################
+
 
     def readingCsv(self, csv_file):
 
@@ -130,16 +132,27 @@ class Parser:
 
     # Changing the json file
 
-## THIS IS THE MAIN FUNCTION, run this to parse
+# THIS IS THE MAIN FUNCTION, run this to parse
 
     def parse(self, csv_file):
+
+        accepted_headers = ['data', 'stato', 'codice_regione', 'denominazione_regione', 'lat', 'long', 'ricoverati_con_sintomi', 'terapia_intensiva', 'totale_ospedalizzati', 'isolamento_domiciliare', 'totale_positivi', 'variazione_totale_positivi', 'nuovi_positivi', 'dimessi_guariti', 'deceduti', 'casi_da_sospetto_diagnostico',
+                            'casi_da_screening', 'totale_casi', 'tamponi', 'casi_testati', 'note', 'ingressi_terapia_intensiva', 'note_test', 'note_casi', 'totale_positivi_test_molecolare', 'totale_positivi_test_antigenico_rapido', 'tamponi_test_molecolare', 'tamponi_test_antigenico_rapido', 'codice_nuts_1', 'codice_nuts_2']
+
+        # if self.csv_headers != accepted_headers:
+        #     print('bad file')
+        #    return
+
         if (os.path.isfile(f'geojson/{csv_file}.json') == False):
             self.readingCsv(csv_file)
-            self.modifyGeojson(csv_file)
+
+            if accepted_headers == self.csv_headers:
+                self.modifyGeojson(csv_file)
+            else:
+                print('not valid csv file')
 
 
 ########################################################################################
-
 
     def modifyGeojson(self, csv_file):
 
@@ -198,6 +211,4 @@ class Parser:
         # print(merged_values)
 
 
-
-# for every file in csv folder, generate a new json 
-
+# for every file in csv folder, generate a new json
