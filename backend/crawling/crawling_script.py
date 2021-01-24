@@ -12,7 +12,7 @@ scrape()
 
 p = Parser()
 
-csvs = os.listdir("./csv")
+csvs = os.listdir("data/csv")
 
 bar = Bar('Parsing', max=len(csvs))
 for csv in csvs:

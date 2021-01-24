@@ -81,7 +81,7 @@ class Parser:
     def readingCsv(self, csv_file):
 
         try:
-            with open(f'csv/{csv_file}', 'r') as file:
+            with open(f'data/csv/{csv_file}', 'r') as file:
 
                 # skipping the first row, since we don't need it
                 reader = csv.reader(file)
@@ -143,7 +143,7 @@ class Parser:
         #     print('bad file')
         #    return
 
-        if (os.path.isfile(f'geojson/{csv_file}.json') == False):
+        if (os.path.isfile(f'data/geojson/{csv_file}.json') == False):
             self.readingCsv(csv_file)
 
             if accepted_headers == self.csv_headers:
@@ -199,7 +199,7 @@ class Parser:
                                 f['properties'][field] = converted_value
 
                 # Save our changes to JSON file
-            jsonFile = open(f"./geojson/{csv_file}.json", "w+")
+            jsonFile = open(f"data/geojson/{csv_file}.json", "w+")
             jsonFile.write(json.dumps(data))
             jsonFile.close()
 

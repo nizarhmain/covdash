@@ -81,6 +81,22 @@ for now this is what we want to have
 
 ### Backend part (mostly scraping):
 
+
+```
+
+. /venv/bin/activate
+
+flask run
+
+```
+
+run tests from backend folder
+
+```
+pytest
+
+```
+
 - depending on the scraper, see if it's easier in python
 
 - scrape the stats from the covid repo data  

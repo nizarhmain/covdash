@@ -35,12 +35,11 @@ def download_file(url, filename):
     # print(filename)
 
     # check if file already exists
-    if (os.path.isfile(f'csv/{filename}') == False):
+    if (os.path.isfile(f'data/csv/{filename}') == False):
         # print("does not exist yet")
         urllib.request.urlretrieve(url, f'csv/{filename}')
 
     # other wise dont download it
-
 
 
 def scrape():
@@ -48,6 +47,8 @@ def scrape():
 
     repo = g.get_repo("pcm-dpc/COVID-19")
     contents = repo.get_contents("dati-regioni")
+
+    print(f'repository last updated at {repo.updated_at}')
 
     enoughDiskSpace(len(contents))
 
@@ -63,3 +64,4 @@ def scrape():
 
     bar.finish()
 
+    print(f' ultimo file {contents[-3]}')
