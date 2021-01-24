@@ -37,7 +37,7 @@ def download_file(url, filename):
     # check if file already exists
     if (os.path.isfile(f'data/csv/{filename}') == False):
         # print("does not exist yet")
-        urllib.request.urlretrieve(url, f'csv/{filename}')
+        urllib.request.urlretrieve(url, f'data/csv/{filename}')
 
     # other wise dont download it
 

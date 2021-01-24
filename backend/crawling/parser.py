@@ -13,6 +13,8 @@ import csv
 import collections
 import os
 
+from crawling.bad_csv_exceptions import BadCsvException
+
 # This is used for the provinces that have different names
 # Valle d'Aosta/Vallée d'Aoste in json
 # Valle d'Aosta d'Aoste in csv
@@ -34,9 +36,10 @@ from progress.bar import Bar
 class Parser:
 
     # costruttore della classe
-    def __init__(self):
+    def __init__(self, data_folder_path):
 
         # User arguments
+        self.data_folder_path = data_folder_path
         self.json_list = []
         self.csv_name_list = []
         self.merged_values = []
@@ -80,8 +83,10 @@ class Parser:
 
     def readingCsv(self, csv_file):
 
+        print(csv_file)
+
         try:
-            with open(f'data/csv/{csv_file}', 'r') as file:
+            with open(f'{self.data_folder_path}/csv/{csv_file}', 'r') as file:
 
                 # skipping the first row, since we don't need it
                 reader = csv.reader(file)
@@ -106,7 +111,7 @@ class Parser:
 
         except FileNotFoundError:
             print(
-                f' the file was not found in the path csv/{csv_file}, check the path again ')
+                f' the file was not found in the path {self.data_folder_path}/csv/{csv_file}, check the path again ')
 
  ########################################################################################
 
@@ -139,16 +144,21 @@ class Parser:
         accepted_headers = ['data', 'stato', 'codice_regione', 'denominazione_regione', 'lat', 'long', 'ricoverati_con_sintomi', 'terapia_intensiva', 'totale_ospedalizzati', 'isolamento_domiciliare', 'totale_positivi', 'variazione_totale_positivi', 'nuovi_positivi', 'dimessi_guariti', 'deceduti', 'casi_da_sospetto_diagnostico',
                             'casi_da_screening', 'totale_casi', 'tamponi', 'casi_testati', 'note', 'ingressi_terapia_intensiva', 'note_test', 'note_casi', 'totale_positivi_test_molecolare', 'totale_positivi_test_antigenico_rapido', 'tamponi_test_molecolare', 'tamponi_test_antigenico_rapido', 'codice_nuts_1', 'codice_nuts_2']
 
+        accepted_headers_2 = ['data', 'stato', 'codice_regione', 'denominazione_regione', 'lat', 'long', 'ricoverati_con_sintomi', 'terapia_intensiva', 'totale_ospedalizzati', 'isolamento_domiciliare', 'totale_positivi',
+                              'variazione_totale_positivi', 'nuovi_positivi', 'dimessi_guariti', 'deceduti', 'casi_da_sospetto_diagnostico', 'casi_da_screening', 'totale_casi', 'tamponi', 'casi_testati', 'note', 'ingressi_terapia_intensiva', 'note_test', 'note_casi']
+
         # if self.csv_headers != accepted_headers:
         #     print('bad file')
         #    return
 
-        if (os.path.isfile(f'data/geojson/{csv_file}.json') == False):
+        if (os.path.isfile(f'{self.data_folder_path}/geojson/{csv_file}.json') == False):
             self.readingCsv(csv_file)
 
-            if accepted_headers == self.csv_headers:
+            if accepted_headers == self.csv_headers or accepted_headers_2 == self.csv_headers:
                 self.modifyGeojson(csv_file)
             else:
+                raise BadCsvException('Bad Csv')
+                print(self.csv_headers)
                 print('not valid csv file')
 
 
@@ -199,7 +209,7 @@ class Parser:
                                 f['properties'][field] = converted_value
 
                 # Save our changes to JSON file
-            jsonFile = open(f"data/geojson/{csv_file}.json", "w+")
+            jsonFile = open(f"{self.data_folder_path}/geojson/{csv_file}.json", "w+")
             jsonFile.write(json.dumps(data))
             jsonFile.close()
 
