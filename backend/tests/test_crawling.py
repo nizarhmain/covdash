@@ -19,5 +19,5 @@ def test_good_csv():
 
 
 def test_bad_csv():
-    with pytest.raises(Exception) as excinfo:
+    with pytest.raises(Exception):
         Parser("tests/test_data").parse("bad_csv.csv")

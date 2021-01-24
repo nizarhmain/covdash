@@ -113,6 +113,14 @@ pytest
 
 ```
 
+
+
+## enable hot reload on flask
+
+```
+FLASK_APP=app.py FLASK_ENV=development flask run
+```
+
 - depending on the scraper, see if it's easier in python
 
 - scrape the stats from the covid repo data  

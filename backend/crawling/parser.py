@@ -158,8 +158,6 @@ class Parser:
                 self.modifyGeojson(csv_file)
             else:
                 raise BadCsvException('Bad Csv')
-                print(self.csv_headers)
-                print('not valid csv file')
 
 
 ########################################################################################

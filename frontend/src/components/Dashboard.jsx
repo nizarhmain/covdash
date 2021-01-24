@@ -36,7 +36,9 @@ export default class Dashboard extends Component {
 
     async getRegions() {
         // Make a request for a user with a given ID
-        axios.get("http://localhost:5000/latest")
+        const url = "http://localhost:5000/geojson?date=20200324"
+        // const url = "http://localhost:5000/latest"
+        axios.get(url)
             .then((response) => {
                 // console.log(response.data);
                 // could simplify the code but leaving it like this for clarity
