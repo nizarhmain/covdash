@@ -1,0 +1,7 @@
+Flask==1.1.2
+APScheduler==3.7.0
+Flask_Cors==3.0.10
+pytest==6.2.1
+psutil==5.8.0
+progress==1.5
+PyGithub==1.54.1
