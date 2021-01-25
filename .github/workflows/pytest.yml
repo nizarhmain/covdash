@@ -35,6 +35,10 @@ jobs:
     - name: install dependencies
       run: pip install -r requirements.txt
       working-directory: backend
+
+    - name: printing current path
+      run: pwd 
+      working-directory: backend
       
     - name: running tests
       run: pytest
