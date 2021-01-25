@@ -1,6 +1,6 @@
 venv
 __pycache__
-geojson
-csv
+data/geojson
+data/csv
 
 .pytest*
