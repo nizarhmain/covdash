@@ -38,13 +38,11 @@ export default class Dashboard extends Component {
     }
 
     componentDidMount() {
-        this.getRegions("http://localhost:5000/latest")
-        // this.getRegions("http://localhost:5000/geojson?date=20200316")
+        this.getRegions(`${process.env.REACT_APP_SERVER_URL}/latest`)
     }
 
     async getRegions(url) {
         // Make a request for a user with a given ID
-        // const url = "http://localhost:5000/latest"
         return axios.get(url)
             .then((response) => {
                 console.log(response)
@@ -115,7 +113,7 @@ export default class Dashboard extends Component {
 
         // forcing the rerender of the region information
         const new_date = dateString.replace(/-/g, '')
-        const url = `http://localhost:5000/geojson?date=${new_date}`
+        const url = `${process.env.REACT_APP_SERVER_URL}/geojson?date=${new_date}`
         this.getRegions(url).then(() => {
             console.log(this.state.region.alias)
             console.log(this.state.region.nuovi_positivi)

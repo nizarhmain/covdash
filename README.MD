@@ -19,24 +19,11 @@ The intent of the project is to have a dashboard that would show a map of Italy 
 
 
 
-## Final product goal / design prototype
+## DevOps
 
+github repo -> azure static website is deployed through github actions
 
-
-<p align="center">
-  <img src="diagrams/mobile.png" width="50%" />
-</p>
-
-
-<p align="center">
-  <img src="diagrams/tablet.png" width="100%" />
-</p>
-
-
-<p align="center">
-  <img src="diagrams/desktop.png" width="90%" />
-</p>
-
+[deploying python flask app to azure](https://blog.siliconvalve.com/2019/03/22/use-github-actions-to-deploy-a-python-flask-web-app-to-azure-app-service-on-linux/)
 
 
 
