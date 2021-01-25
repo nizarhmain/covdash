@@ -10,11 +10,11 @@ def func(x):
 
 
 def test_good_csv():
-    Parser("./tests/test_data").parse("dpc-covid19-ita-regioni-20200224.csv")
+    Parser("tests/test_data").parse("dpc-covid19-ita-regioni-20200224.csv")
     # check if the geojson was generated
-    assert(os.path.exists("./tests/test_data/geojson/dpc-covid19-ita-regioni-20200224.csv.json")) == True
+    assert(os.path.exists("tests/test_data/geojson/dpc-covid19-ita-regioni-20200224.csv.json")) == True
     # delete the file
-    os.remove("./tests/test_data/geojson/dpc-covid19-ita-regioni-20200224.csv.json")
+    os.remove("tests/test_data/geojson/dpc-covid19-ita-regioni-20200224.csv.json")
 
 
 
