@@ -192,7 +192,6 @@ export default class Dashboard extends Component {
                 </div>
 
                 <div className="flex flex-wrap justify-center flex-row graph_container mx-auto">
-                    <PropertyChooser setSelectedProperty={this.setSelectedProperty} />
                     {this.prepareDateForNivoBar()}
                     <Footer />
                 </div>

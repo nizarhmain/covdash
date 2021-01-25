@@ -22,7 +22,7 @@ export function Italy(props) {
     return (
         <div id="italy_map" className="flex flex-1 m-5 md:m-16 sm:m-10 ">
 
-            <MapContainer maxBounds={outerBounds} bounds={outerBounds} doubleClickZoom={false} className="rounded-lg shadow-2xl" id="map_container" scrollWheelZoom={true}>
+            <MapContainer maxBounds={outerBounds} bounds={outerBounds} doubleClickZoom={false} className="rounded-lg shadow-2xl" id="map_container" scrollWheelZoom={false}>
                 <TileLayer
                     url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
                 />
