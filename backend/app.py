@@ -32,17 +32,17 @@ atexit.register(lambda: scheduler.shutdown())
 
 
 
-@app.route('/')
+@app.route('/api')
 def hello_world():
     return 'Hello, World!'
 
 
-@app.route('/latest')
+@app.route('/api/latest')
 def latest():
     return send_file('data/geojson/dpc-covid19-ita-regioni-latest.csv.json')
 
 
-@app.route('/all')
+@app.route('/api/all')
 def all():
 
     csvs = os.listdir("data/geojson")
@@ -50,7 +50,7 @@ def all():
     return jsonify({'csvs': csvs})
 
 
-@app.route('/geojson')
+@app.route('/api/geojson')
 def get_geojson():
     date = request.args.get('date')
     file = f'data/geojson/dpc-covid19-ita-regioni-{date}.csv.json'
