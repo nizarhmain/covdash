@@ -12,7 +12,7 @@ import { MyResponsiveBar } from './Graphs/Bar'
 
 import { positiveOrNegative, findExtremes } from './Map/Geojson'
 
-import { DatePicker, Space } from 'antd';
+import { DatePicker } from 'antd';
 
 import moment from 'moment'
 
