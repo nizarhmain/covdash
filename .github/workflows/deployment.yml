@@ -23,14 +23,13 @@ jobs:
 
   flask:
     name: Testing Python
-    build:
-      runs-on: ubuntu-18.04
-      strategy:
-        # You can use PyPy versions in python-version.
-        # For example, pypy2 and pypy3
-        matrix:
-          python-version: [3.7, 3.8, 3.9]
-
+      build:
+        runs-on: ubuntu-18.04
+        strategy:
+          # You can use PyPy versions in python-version.
+          # For example, pypy2 and pypy3
+          matrix:
+            python-version: [3.7, 3.8, 3.9]
       steps:
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python-version }}
@@ -57,12 +56,12 @@ jobs:
   react:
     needs: flask 
     name: Testing React
-    build:
-      runs-on: ubuntu-18.04
-      strategy:
-        matrix:
-          node-version: [14.x, 15.x]
-          # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+      build:
+        runs-on: ubuntu-18.04
+        strategy:
+          matrix:
+            node-version: [14.x, 15.x]
+            # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
       steps:
       - uses: actions/checkout@v2
