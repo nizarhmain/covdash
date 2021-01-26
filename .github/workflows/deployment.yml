@@ -4,10 +4,11 @@ on:
     branches: [ main ]
 
 jobs:
+  runs-on: ubuntu-18.04
+
   deploy:
     needs: [flask, react]
     name: Deploy
-    runs-on: ubuntu-18.04
     steps:
       - name: testing nizapizza.com server ssh connection
         uses: appleboy/ssh-action@master
@@ -23,15 +24,15 @@ jobs:
 
   flask:
     name: Testing Python
-    runs-on: ubuntu-18.04
-    build:
-      strategy:
-        matrix:
-          python-version: [3.7, 3.8, 3.9]
+    strategy:
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
     steps:
       - uses: actions/checkout@v2
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
+
         with:
           python-version: ${{ matrix.python-version }}
       # You can test your matrix by printing the current Python version
@@ -54,30 +55,28 @@ jobs:
   react:
     needs: flask 
     name: Testing React
-    build:
-      runs-on: ubuntu-18.04
-      strategy:
-        matrix:
-          node-version: [14.x, 15.x]
-          # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    strategy:
+      matrix:
+        node-version: [14.x, 15.x]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: install dependencies 
-      run: npm i 
-      working-directory: frontend
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: install dependencies 
+        run: npm i 
+        working-directory: frontend
 
-    - name: testing with enzyme  
-      run: npm test 
-      working-directory: frontend
+      - name: testing with enzyme  
+        run: npm test 
+        working-directory: frontend
 
-    - name: building the final app 
-      run: npm run build
-      working-directory: frontend
+      - name: building the final app 
+        run: npm run build
+        working-directory: frontend
 
 
       
