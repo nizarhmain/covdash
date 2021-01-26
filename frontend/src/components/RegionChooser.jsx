@@ -27,16 +27,11 @@ export default function RegionChooser( {region, setRegionFromAlias } ) {
         // console.log('focus');
     }
 
-    function onSearch(val) {
-        // console.log('search:', val);
-    }
-
 
     return (
         <div className="mx-auto p-7 m-7">
 
             <Select
-                showSearch
                 size="large"
                 placeholder="Scegli una regione"
                 style={{ width: "300px" }}
@@ -44,7 +39,6 @@ export default function RegionChooser( {region, setRegionFromAlias } ) {
                 onChange={onChange}
                 onFocus={onFocus}
                 onBlur={onBlur}
-                onSearch={onSearch}
                 value={ checkIfRegionNotNull() }
             >
                 <Option value="Abruzzo">Abruzzo</Option>

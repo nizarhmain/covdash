@@ -24,16 +24,11 @@ export default function PropertyChooser( {setSelectedProperty} ) {
         // console.log('focus');
     }
 
-    function onSearch(val) {
-        // console.log('search:', val);
-    }
-
 
     return (
         <div className="flex mx-auto p-7 m-7 justify-center">
 
             <Select
-                showSearch
                 size="large"
                 placeholder="Scegli un dato"
                 style={{ width: "300px" }}
@@ -41,7 +36,6 @@ export default function PropertyChooser( {setSelectedProperty} ) {
                 onChange={onChange}
                 onFocus={onFocus}
                 onBlur={onBlur}
-                onSearch={onSearch}
                 defaultValue="nuovi_positivi"
             >
                 <Option value="casi_testati">Casi testati</Option>

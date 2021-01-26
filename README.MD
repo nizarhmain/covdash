@@ -12,6 +12,9 @@ The intent of the project is to have a dashboard that would show a map of Italy 
 ## Current state of the project
 
 
+[live demo](https://nizapizza.com)
+
+
 <p align="center">
   <img src="diagrams/current_state.png" width="80%" />
 </p>

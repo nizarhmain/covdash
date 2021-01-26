@@ -167,7 +167,7 @@ export default class Dashboard extends Component {
                 <div className="flex flex-col items-center mx-auto m-8">
                     <p> Ultimo aggiornamento il {new Date(this.state.lastUpdate).toLocaleString('it-IT')} </p>
                     <div>
-                        <DatePicker disabledDate={this.disabledDate}
+                        <DatePicker inputReadOnly={false} disabledDate={this.disabledDate}
                             onChange={this.onChange} defaultValue={moment()} />
                     </div>
                 </div>
@@ -181,7 +181,7 @@ export default class Dashboard extends Component {
                             <Italy geojson={this.state.geojson} selectedProperty={this.state.selectedProperty} setRegionFromAlias={this.setRegionFromAlias} />
                         </div>
 
-                        <div className="flex-2 flex-col">
+                        <div className="flex-1 flex-col">
                             <RegionChooser region={this.state.region} setRegionFromAlias={this.setRegionFromAlias} />
                             <RegionInfo region={this.state.region} lastUpdate={this.state.lastUpdate} />
 
