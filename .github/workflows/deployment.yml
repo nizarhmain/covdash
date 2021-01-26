@@ -23,64 +23,64 @@ jobs:
 
   flask:
     name: Testing Python
-      build:
-        runs-on: ubuntu-18.04
-        strategy:
-          # You can use PyPy versions in python-version.
-          # For example, pypy2 and pypy3
-          matrix:
-            python-version: [3.7, 3.8, 3.9]
-      steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
-      # You can test your matrix by printing the current Python version
-      - name: Display Python version
-        run: python -c "import sys; print(sys.version)"
-        working-directory: backend
-        
-      - name: install dependencies
-        run: pip install -r requirements.txt
-        working-directory: backend
+    build:
+      runs-on: ubuntu-18.04
+      strategy:
+        # You can use PyPy versions in python-version.
+        # For example, pypy2 and pypy3
+        matrix:
+          python-version: [3.7, 3.8, 3.9]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    # You can test your matrix by printing the current Python version
+    - name: Display Python version
+      run: python -c "import sys; print(sys.version)"
+      working-directory: backend
+      
+    - name: install dependencies
+      run: pip install -r requirements.txt
+      working-directory: backend
 
-      - name: printing current path
-        run: pwd 
-        working-directory: backend
-        
-      - name: running tests
-        run: pytest
-        working-directory: backend
+    - name: printing current path
+      run: pwd 
+      working-directory: backend
+      
+    - name: running tests
+      run: pytest
+      working-directory: backend
 
   react:
     needs: flask 
     name: Testing React
-      build:
-        runs-on: ubuntu-18.04
-        strategy:
-          matrix:
-            node-version: [14.x, 15.x]
-            # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    build:
+      runs-on: ubuntu-18.04
+      strategy:
+        matrix:
+          node-version: [14.x, 15.x]
+          # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-      steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: install dependencies 
-        run: npm i 
-        working-directory: frontend
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: install dependencies 
+      run: npm i 
+      working-directory: frontend
 
-      - name: testing with enzyme  
-        run: npm test 
-        working-directory: frontend
+    - name: testing with enzyme  
+      run: npm test 
+      working-directory: frontend
 
-      - name: building the final app 
-        run: npm run build
-        working-directory: frontend
+    - name: building the final app 
+      run: npm run build
+      working-directory: frontend
 
 
-        
+      
 
