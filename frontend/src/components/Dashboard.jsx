@@ -164,7 +164,7 @@ export default class Dashboard extends Component {
 
 
                 <div className="flex flex-col items-center mx-auto m-8">
-                    <p> Ultimo aggiornamento il {new Date(this.state.lastUpdate).toLocaleString('it-IT')} </p>
+                    <p> Ultimo aggiornamento : {new Date(this.state.lastUpdate).toLocaleString('it-IT')} </p>
                     <div>
                         <DatePicker inputReadOnly={false} disabledDate={this.disabledDate}
                             onChange={this.onChange} defaultValue={moment()} />

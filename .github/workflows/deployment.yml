@@ -21,6 +21,9 @@ jobs:
             cd software/covdash
             git pull
             pm2 restart api
+            cd frontend
+            npm run build
+            sudo service nginx restart
 
   flask:
     runs-on: ubuntu-18.04
