@@ -44,24 +44,25 @@ def download_file(url, filename):
 
 def scrape():
     g = Github()
+    try:
+        repo = g.get_repo("pcm-dpc/COVID-19")
+        contents = repo.get_contents("dati-regioni")
 
-    repo = g.get_repo("pcm-dpc/COVID-19")
-    contents = repo.get_contents("dati-regioni")
 
-    print(f'repository last updated at {repo.updated_at}')
+        print(f'repository last updated at {repo.updated_at}, ultimo file {contents[-3].name}')
 
-    enoughDiskSpace(len(contents))
+        enoughDiskSpace(len(contents))
 
-    print("there is enough space")
-    bar = Bar('Downloading', max=len(contents))
+        bar = Bar('Downloading', max=len(contents))
 
-    for content_file in contents:
-        # print(content_file.download_url)
-        # the size is in kb
-        # print(content_file.size)
-        bar.next()
-        download_file(content_file.download_url, content_file.name)
+        for content_file in contents:
+            # print(content_file.download_url)
+            # the size is in kb
+            # print(content_file.size)
+            bar.next()
+            download_file(content_file.download_url, content_file.name)
 
-    bar.finish()
+        bar.finish()
 
-    print(f' ultimo file {contents[-3]}')
+    except Exception:
+        print('repo has issues')

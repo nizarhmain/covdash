@@ -12,7 +12,7 @@ export default function ResetViewButton() {
     const map = useMap()
 
     return (
-        <div class="leaflet-control ml-16 mt-5">
+        <div className="leaflet-control ml-16 mt-5">
             <Button onClick={() => map.fitBounds(outerBounds)}>
                 <div className="flex flex-row align-center justify-between">
                     <svg height="20px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

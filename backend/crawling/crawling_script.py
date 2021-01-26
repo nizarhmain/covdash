@@ -20,8 +20,6 @@ def crawl():
 
    # parse all the csvs from git
 
-   p = Parser("data")
-
    csvs = os.listdir("data/csv")
 
    bar = Bar('Parsing', max=len(csvs))

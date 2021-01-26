@@ -32,6 +32,11 @@ jobs:
     - name: install dependencies 
       run: npm i 
       working-directory: frontend
+
+    - name: testing with enzyme  
+      run: npm test 
+      working-directory: frontend
+
     - name: building the final app 
       run: npm run build
       working-directory: frontend

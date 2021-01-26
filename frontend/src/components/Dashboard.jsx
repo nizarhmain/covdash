@@ -45,7 +45,7 @@ export default class Dashboard extends Component {
         // Make a request for a user with a given ID
         return axios.get(url)
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 // console.log(response.data);
                 // could simplify the code but leaving it like this for clarity
                 // set the lastUpdate date 
@@ -65,7 +65,7 @@ export default class Dashboard extends Component {
             })
             .catch((error) => {
                 // handle error
-                console.log(error);
+                // console.log(error);
             })
             .then(() => {
                 // always executed
@@ -100,7 +100,6 @@ export default class Dashboard extends Component {
         } else {
             green_or_red = '0'
         }
-
         return `hsl(${green_or_red}, 50%, ${inverted}%)`
     }
 
