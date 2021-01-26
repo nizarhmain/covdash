@@ -17,5 +17,6 @@ jobs:
           port: 22
           script: |
             cd software/covdash
-            git pull origin master
-            git status
+            kill $( ps aux | grep python | grep flask | awk '{print $2}' )
+            git pull
+            nohup python3 -m flask run &
