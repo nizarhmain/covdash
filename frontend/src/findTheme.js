@@ -3,5 +3,9 @@
 
 export default function findTheme() {
     // light or dark
-    return localStorage.getItem('theme')
+    if (localStorage.getItem('theme') !== null) {
+        return localStorage.getItem('theme') 
+    } else {
+        return 'light'
+    }
 }
