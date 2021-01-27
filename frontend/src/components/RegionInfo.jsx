@@ -19,7 +19,7 @@ export default function RegionInfo({ region, lastUpdate }) {
     function renderRegion(key, value, icon) {
 
         return (
-            <div className=" flex flex-row justify-around items-center m-3 sm:m-7 md:m-1 w-full max-w-sm bg-white rounded-xl shadow-md">
+            <div className=" flex flex-row justify-around items-center m-3 sm:m-7 md:m-1 w-full max-w-sm bg-white rounded-xl shadow-md dark:bg-gray-800 dark:text-white">
 
                 <div>
                     <img alt="region_icon" className="svg" src={icon} />

@@ -5,6 +5,7 @@ import { MapContainer, TileLayer } from 'react-leaflet'
 import ResetViewButton from './ResetViewButton'
 import MyGeojson from './Geojson'
 
+import findTheme from '../../findTheme'
 
 //########################################################################################
 
@@ -19,12 +20,14 @@ const outerBounds = [
 
 export function Italy(props) {
 
+    
+
     return (
         <div id="italy_map" className="flex flex-1 m-5 md:m-16 sm:m-10 ">
 
-            <MapContainer maxBounds={outerBounds} bounds={outerBounds} doubleClickZoom={false} className="rounded-lg shadow-2xl" id="map_container" scrollWheelZoom={false} minZoom={6}>
+            <MapContainer dragging={false} maxBounds={outerBounds} bounds={outerBounds} doubleClickZoom={false} className="rounded-lg shadow-2xl" id="map_container" scrollWheelZoom={false} minZoom={5}>
                 <TileLayer
-                    url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                    url={`https://{s}.basemaps.cartocdn.com/${findTheme()}_all/{z}/{x}/{y}{r}.png`}
                 />
 
                 {props.geojson !== null && <MyGeojson data={props.geojson} selectedProperty={props.selectedProperty} setRegionFromAlias={props.setRegionFromAlias} />}

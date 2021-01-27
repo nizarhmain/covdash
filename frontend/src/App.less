@@ -1,5 +1,4 @@
-@import '~antd/dist/antd.less';
-
+// @import '~antd/dist/antd.less';
 
 @tablet:~"only screen and (min-width: 768px) and (max-width:1024px)";
 @desktop:~"only screen and (min-width: 1025px)";
@@ -32,7 +31,13 @@
 
 
   .graph_container {
-    height: 50vh;
+    height: 70vh;
+  }
+
+
+  // graph bar
+  #root > div > div > div:nth-child(4) > div > div:nth-child(2) {
+    display: none;
   }
 
 
@@ -42,6 +47,11 @@
   }
 
   @media @tablet {
+    #root > div > div > div:nth-child(4) > div > div:nth-child(2) {
+      display: inline;
+    }
+
+
    .ant-picker-dropdown {
     margin: 0px !important;
     left: 44% !important;
@@ -50,10 +60,16 @@
 }
 
   @media @desktop {
+    #root > div > div > div:nth-child(4) > div > div:nth-child(2) {
+      display: inline;
+    }
+
+
    .ant-picker-dropdown {
     margin: 0px !important;
     left: 44% !important;
   }
+
 
 }
 

@@ -29,7 +29,7 @@ export default function RegionChooser( {region, setRegionFromAlias } ) {
 
 
     return (
-        <div className="mx-auto p-7 m-7">
+        <div className="mx-auto p-7 m-7 text-center">
 
             <Select
                 size="large"

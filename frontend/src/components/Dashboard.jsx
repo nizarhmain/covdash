@@ -9,12 +9,14 @@ import RegionInfo from './RegionInfo'
 import RegionChooser from './RegionChooser'
 
 import { MyResponsiveBar } from './Graphs/Bar'
+import { MyResponsivePie } from './Graphs/Pie'
 
 import { positiveOrNegative, findExtremes } from './Map/Geojson'
 
 import { DatePicker } from 'antd';
 
 import moment from 'moment'
+import findTheme from '../findTheme'
 
 
 
@@ -139,29 +141,59 @@ export default class Dashboard extends Component {
             let data_for_graph = this.state.geojson.features.map(region => {
 
                 return {
+                    "id": region.properties.alias,
                     "alias": region.properties.alias,
+                    "label": region.properties.alias,
                     "value": region.properties[this.state.selectedProperty],
                     // looks pretty complicated but its just to calculate the intensity
                     "color": this.adjustColorIntensity(positiveOrNegative(this.state.selectedProperty), region.properties[this.state.selectedProperty], extremes.max)
                 }
             });
-            return <MyResponsiveBar data={data_for_graph} />
+
+            return (
+                <div className="flex flex-wrap justify-center flex-row graph_container mx-auto">
+                    <MyResponsivePie data={data_for_graph} />
+                    <MyResponsiveBar data={data_for_graph} />
+                    <Footer />
+                </div>
+            )
+
         }
 
     }
 
-
     render() {
+
+        let logo_style = { height: "100px" }
+        let img_src = 'half-moon.svg'
+
+        if (findTheme() === 'dark') {
+            img_src = 'sunny.svg'
+            logo_style = { height: "100px", filter: "invert(1)" }
+        }
 
         return (
             <div className="md:container md:mx-auto">
 
-                <div className="flex justify-center m-8">
-                    <img alt="logo" style={{ height: "100px" }} src="./logo.png" />
+                <div className="flex justify-end m-8">
+                    <button className="shadow-2xl rounded-lg" onClick={() => {
+                        if (localStorage.getItem('theme') === 'dark') {
+                            localStorage.setItem('theme', 'light')
+                        } else {
+                            localStorage.setItem('theme', 'dark')
+                        }
+                        window.location.reload()
+                    }} >
 
+                        <img alt="darkmode" className="svg" src={img_src} />
+
+                    </button>
                 </div>
 
 
+                <div className="flex justify-center m-8">
+                    <img alt="logo" style={logo_style} src="./logo.png" />
+                </div>
 
                 <div className="flex flex-col items-center mx-auto m-8">
                     <p> Ultimo aggiornamento : {new Date(this.state.lastUpdate).toLocaleString('it-IT')} </p>
@@ -188,9 +220,8 @@ export default class Dashboard extends Component {
                     </div>
                 </div>
 
-                <div className="flex flex-wrap justify-center flex-row graph_container mx-auto">
+                <div>
                     {this.prepareDateForNivoBar()}
-                    <Footer />
                 </div>
             </div>
         )

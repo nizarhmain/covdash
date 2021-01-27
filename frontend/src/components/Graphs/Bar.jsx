@@ -2,7 +2,6 @@
 // yarn add @nivo/core @nivo/bar
 import { ResponsiveBar } from '@nivo/bar'
 
-
 // make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
 // no chart will be rendered.
@@ -11,16 +10,14 @@ import { ResponsiveBar } from '@nivo/bar'
 export const MyResponsiveBar = ({ data /* see data tab */ }) => (
 
     // handle the data correctly
-
-
-
-
     <ResponsiveBar
+        id="bar_chart"
         data={data}
         keys={[ 'value' ]}
         indexBy="alias"
-        margin={{ top: 50, right: 50, bottom: 50, left: 60 }}
-        padding={0.3}
+        margin={{ top: 50, right: 50, bottom: 50, left: 200 }}
+        padding={0.1}
+        borderRadius={9}
         valueScale={{ type: 'linear' }}
         indexScale={{ type: 'band', round: true }}
         colors={{ datum: 'data.color' }}
@@ -31,6 +28,7 @@ export const MyResponsiveBar = ({ data /* see data tab */ }) => (
         labelTextColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
         animate={true}
         motionStiffness={90}
+        axisBottom={false}
         motionDamping={15}
     />
 )
