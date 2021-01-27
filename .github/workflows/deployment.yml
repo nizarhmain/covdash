@@ -20,6 +20,8 @@ jobs:
           script: |
             cd software/covdash
             git pull
+            cd backend
+            pip3 install -r requirements.txt
             pm2 restart api
             cd frontend
             npm run build
