@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 
-
+/*
 //STEP 1:
 //create components using React.lazy
 const LightTheme = React.lazy(() => import('./lightTheme'));
@@ -11,6 +11,7 @@ const DarkTheme = React.lazy(() => import('./darkTheme'));
 
 //STEP 2:
 //create a parent component that will load the components conditionally using React.Suspense
+
 const ThemeSelector = ({ children }) => {
   const CHOSEN_THEME = localStorage.getItem('theme') || 'light';
   return (
@@ -24,14 +25,13 @@ const ThemeSelector = ({ children }) => {
   )
 }
 
+*/
 
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeSelector>
       <App />
-    </ThemeSelector>
   </React.StrictMode>,
   document.getElementById('root')
 );
