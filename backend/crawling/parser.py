@@ -62,6 +62,7 @@ class Parser:
 
 ########################################################################################
 
+
     def getInfoFromCsv(self, row):
 
         # take the row name
@@ -79,7 +80,6 @@ class Parser:
 
 
 ########################################################################################
-
 
     def readingCsv(self, csv_file):
 
@@ -151,6 +151,22 @@ class Parser:
         #     print('bad file')
         #    return
 
+        if(csv_file == 'dpc-covid19-ita-regioni-latest.csv'):
+            # first delete it and then do the parsing
+            try:
+                os.remove(
+                f'{self.data_folder_path}/geojson/dpc-covid19-ita-regioni-latest.csv.json')
+            except FileNotFoundError:
+                print('latest geojson is not here')
+            
+            self.readingCsv(csv_file)
+
+            if accepted_headers == self.csv_headers or accepted_headers_2 == self.csv_headers:
+                self.modifyGeojson(csv_file)
+            else:
+                raise BadCsvException('Bad Csv')
+
+
         if (os.path.isfile(f'{self.data_folder_path}/geojson/{csv_file}.json') == False):
             self.readingCsv(csv_file)
 
@@ -161,6 +177,7 @@ class Parser:
 
 
 ########################################################################################
+
 
     def modifyGeojson(self, csv_file):
 
@@ -207,7 +224,8 @@ class Parser:
                                 f['properties'][field] = converted_value
 
                 # Save our changes to JSON file
-            jsonFile = open(f"{self.data_folder_path}/geojson/{csv_file}.json", "w+")
+            jsonFile = open(
+                f"{self.data_folder_path}/geojson/{csv_file}.json", "w+")
             jsonFile.write(json.dumps(data))
             jsonFile.close()
 

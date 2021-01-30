@@ -2,36 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { ConfigProvider } from 'antd';
 
-/*
-//STEP 1:
-//create components using React.lazy
-const LightTheme = React.lazy(() => import('./lightTheme'));
-const DarkTheme = React.lazy(() => import('./darkTheme'));
-
-//STEP 2:
-//create a parent component that will load the components conditionally using React.Suspense
-
-const ThemeSelector = ({ children }) => {
-  const CHOSEN_THEME = localStorage.getItem('theme') || 'light';
-  return (
-    <>
-      <React.Suspense fallback={<></>}>
-        {(CHOSEN_THEME === 'light') && <LightTheme />}
-        {(CHOSEN_THEME === 'dark') && <DarkTheme />}
-      </React.Suspense>
-      {children}
-    </>
-  )
-}
-
-*/
-
+import itIT from 'antd/lib/locale/it_IT';
+import 'moment/locale/it';
 
 
 ReactDOM.render(
   <React.StrictMode>
+    <ConfigProvider locale={itIT}>
       <App />
+    </ConfigProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

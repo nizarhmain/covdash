@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { GeoJSON } from 'react-leaflet'
-
+import { useMap } from 'react-leaflet'
 
 export default function MyGeojson({ data, selectedProperty, setRegionFromAlias }) {
 

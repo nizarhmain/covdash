@@ -1,5 +1,5 @@
 ---
-marp: true
+marp: true 
 ---
 
 
@@ -58,6 +58,17 @@ initial time was planned to be 16hrs but I extended it to 25 hours (because of t
 
 ---
 
+## Errors caught in testing
+
+![bg fit](./diagrams/badpyt.png)
+![bg fit](./diagrams/test_bad.png)
+
+---
+![bg fit](./diagrams/goodpyt.png)
+![bg fit](./diagrams/test_good.png)
+
+---
+
 ![bg auto](./diagrams/program_flow.png)
 
 ---
@@ -73,7 +84,6 @@ initial time was planned to be 16hrs but I extended it to 25 hours (because of t
 ![bg fit](./diagrams/iphone2.png)
 ![bg fit](./diagrams/iphone3.png)
 ---
-
 
 ---
 

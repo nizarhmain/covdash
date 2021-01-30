@@ -17,8 +17,7 @@ import { DatePicker } from 'antd';
 
 import moment from 'moment'
 import findTheme from '../findTheme'
-
-
+import 'moment/locale/it';
 
 export default class Dashboard extends Component {
 
@@ -61,6 +60,8 @@ export default class Dashboard extends Component {
                     const random_region = response.data.features[random_region_index].properties
                     this.setState({ region: random_region })
                 }
+
+                console.log(response.data.features[0])
 
                 this.setState({ geojson: response.data, lastUpdate: response.data.features[0].properties.data })
                 // handle success
@@ -169,7 +170,7 @@ export default class Dashboard extends Component {
 
         if (findTheme() === 'dark') {
             img_src = 'sunny.svg'
-            logo_style = { height: "100px", filter: "invert(1)" }
+            // logo_style = { height: "100px", filter: "invert(1)" }
         }
 
         return (
@@ -179,10 +180,14 @@ export default class Dashboard extends Component {
                     <button className="shadow-2xl rounded-lg" onClick={() => {
                         if (localStorage.getItem('theme') === 'dark') {
                             localStorage.setItem('theme', 'light')
+                            window.document.documentElement.classList.remove('dark')
+                            this.setState({theme: 'dark'})
                         } else {
                             localStorage.setItem('theme', 'dark')
+                            window.document.documentElement.classList.add('dark')
+                            this.setState({theme: 'light'})
                         }
-                        window.location.reload()
+                        // window.location.reload()
                     }} >
 
                         <img alt="darkmode" className="svg" src={img_src} />
@@ -196,8 +201,8 @@ export default class Dashboard extends Component {
                 </div>
 
                 <div className="flex flex-col items-center mx-auto m-8">
-                    <p> Ultimo aggiornamento : {new Date(this.state.lastUpdate).toLocaleString('it-IT')} </p>
-                    <div>
+                    <p className="dark:text-white"> Ultimo aggiornamento : {new Date(this.state.lastUpdate).toLocaleString('it-IT')} </p>
+                    <div className="dark:bg-gray-800">
                         <DatePicker inputReadOnly={false} disabledDate={this.disabledDate}
                             onChange={this.onChange} defaultValue={moment()} />
                     </div>

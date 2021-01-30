@@ -13,7 +13,7 @@ def test_good_csv():
     assert(os.path.exists(
         "tests/test_data/geojson/dpc-covid19-ita-regioni-20200224.csv.json")) == True
     # delete the file
-    os.remove("tests/test_data/geojson/dpc-covid19-ita-regioni-20200224.csv.json")
+    # os.remove("tests/test_data/geojson/dpc-covid19-ita-regioni-20200224.csv.json")
 
 
 def test_bad_csv():

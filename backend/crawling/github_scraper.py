@@ -39,6 +39,14 @@ def download_file(url, filename):
         # print("does not exist yet")
         urllib.request.urlretrieve(url, f'data/csv/{filename}')
 
+    # unless it is the last file
+    if filename == "dpc-covid19-ita-regioni-latest.csv":
+        # delete the previous one 
+        os.remove('data/csv/dpc-covid19-ita-regioni-latest.csv')
+
+        # and download this new one
+        urllib.request.urlretrieve(url, f'data/csv/{filename}')
+
     # other wise dont download it
 
 
