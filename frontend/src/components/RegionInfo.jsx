@@ -54,7 +54,7 @@ export default function RegionInfo({ region, lastUpdate }) {
     } else {
         return (
             <div className="flex m-4 sm:m-4 md:m-8 flex-1 self-stretch flex-col justify-evenly items-center">
-                <div className="flex flex-col items-center text-lg"> {findIcon(region.alias)} {region.alias}</div>
+                <div className="flex flex-col items-center text-lg dark:text-white"> {findIcon(region.alias)} {region.alias}</div>
                 {renderRegion('Nuovi Positivi', region.nuovi_positivi, "blood-test.svg")}
                 {renderRegion('Tamponi Effetuati', region.tamponi, "swab.svg")}
                 {renderRegion('Positivi Totali', region.totale_positivi, "sick.svg")}

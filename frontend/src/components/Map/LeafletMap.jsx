@@ -1,11 +1,10 @@
 
 import React from 'react'
-import { MapContainer, TileLayer } from 'react-leaflet'
+import { MapContainer } from 'react-leaflet'
 
 import ResetViewButton from './ResetViewButton'
 import MyGeojson from './Geojson'
 
-import { useMap } from 'react-leaflet'
 import MyLayersControl from './MyLayersControl'
 
 //########################################################################################
