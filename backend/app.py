@@ -26,7 +26,6 @@ configure_app(app)
 CORS(app)
 
 
-
 crawling_script.crawl()
 
 def print_date_time():

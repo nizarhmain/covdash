@@ -13,6 +13,7 @@ import csv
 import collections
 import os
 
+from ColoreRegioni import ColoreRegioni
 from crawling.bad_csv_exceptions import BadCsvException
 
 # This is used for the provinces that have different names
@@ -205,6 +206,13 @@ class Parser:
         # print(csv_file)
 
         with open('./regions.json') as json_file:
+
+            # this is for the colors
+            colore_regioni=ColoreRegioni()
+            full_dict=colore_regioni.colori
+            # print(full_dict)
+
+            # then we do the rest
             data = json.load(json_file)
             x = 0
             for f in data['features']:
@@ -213,6 +221,13 @@ class Parser:
 
                 # working with buffered content
                 name = f['properties']['reg_name']
+                # f['properties']['color'] = full_dict[name]
+
+                # there is an exception where the package has a type with Abbruzzo, writes it with two b, its actually just one b (abruzzo)
+                if name == "Abruzzo":
+                    f['properties']['color'] = full_dict["Abbruzzo"]
+                else:
+                    f['properties']['color'] = full_dict[name]
 
                 for value in self.merged_values:
                     # remember this is where we set it before
