@@ -10,6 +10,7 @@ import RegionChooser from './RegionChooser'
 
 import { MyResponsiveBar } from './Graphs/Bar'
 import { MyResponsivePie } from './Graphs/Pie'
+import { NationalGraph } from './Graphs/NationalGraph'
 
 import { positiveOrNegative, findExtremes } from './Map/Geojson'
 
@@ -28,7 +29,8 @@ export default class Dashboard extends Component {
             region: null,
             selectedProperty: 'nuovi_positivi',
             geojson: null,
-            lastUpdate: ''
+            lastUpdate: '',
+            national: []
         }
 
         this.setSelectedProperty = this.setSelectedProperty.bind(this)
@@ -40,6 +42,7 @@ export default class Dashboard extends Component {
 
     componentDidMount() {
         this.getRegions(`${process.env.REACT_APP_SERVER_URL}/latest`)
+        this.getNationalData(`${process.env.REACT_APP_SERVER_URL}/nazionale`)
     }
 
     async getRegions(url) {
@@ -74,6 +77,25 @@ export default class Dashboard extends Component {
                 // always executed
             });
     }
+
+    async getNationalData(url) {
+        // Make a request for a user with a given ID
+        return axios.get(url)
+            .then((response) => {
+
+
+                this.setState({ national: response.data })
+                // handle success
+            })
+            .catch((error) => {
+                // handle error
+                // console.log(error);
+            })
+            .then(() => {
+                // always executed
+            });
+    }
+
 
 
     setSelectedProperty(selectedProperty) {
@@ -134,8 +156,6 @@ export default class Dashboard extends Component {
 
 
     prepareDateForNivoBar() {
-
-
         if (this.state.geojson) {
             const extremes = findExtremes(this.state.geojson.features, this.state.selectedProperty)
 
@@ -151,16 +171,32 @@ export default class Dashboard extends Component {
                 }
             });
 
+
+            let array = this.state.national.slice(Math.max(this.state.national.length - 100, 1))
+
+            let data_for_line = array.map(day => {
+                return {
+                    "x": day.data,
+                    "y": day[this.state.selectedProperty]
+                }
+            })
+
+            let datax = [{
+                "id": "italy",
+                "data": data_for_line,
+                "color": "hsl(98, 70%, 50%)",
+            }]
+
+
             return (
                 <div className="flex flex-wrap justify-center flex-row graph_container">
+                    <NationalGraph data={datax} />
                     <MyResponsivePie data={data_for_graph} />
                     <MyResponsiveBar data={data_for_graph} />
                     <Footer />
                 </div>
             )
-
         }
-
     }
 
     render() {
@@ -207,7 +243,7 @@ export default class Dashboard extends Component {
                             onChange={this.onChange} defaultValue={moment()} />
 
                     </div>
-                    <a className="text-blue-400 underline" href="http://google.com">Scarica il csv del ministero direttamente</a>
+                    <a className="text-blue-400 underline" href={`${process.env.REACT_APP_SERVER_URL}/latest_file`}>Scarica il csv del ministero direttamente</a>
                 </div>
 
                 <div className="flex flex-col" >
@@ -227,7 +263,6 @@ export default class Dashboard extends Component {
                     <div>
                         {this.prepareDateForNivoBar()}
                     </div>
-
                 </div>
             </div>
         )

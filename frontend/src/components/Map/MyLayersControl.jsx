@@ -13,7 +13,6 @@ export default function MyLayersControl() {
         if (findTheme() === "dark") {
             return (
                 <div>
-
                     <LayersControl position="topright">
                         <LayersControl.BaseLayer checked name="OpenStreetMap.Mapnik">
                             <TileLayer
@@ -32,20 +31,19 @@ export default function MyLayersControl() {
 
             return (
                 <div>
-
                     <LayersControl position="topright">
                         <LayersControl.BaseLayer name="OpenStreetMap.Mapnik">
                             <TileLayer
-                                url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+                                url={`https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png`}
                             />
                         </LayersControl.BaseLayer>
                         <LayersControl.BaseLayer checked name="OpenStreetMap.BlackAndWhite">
                             <TileLayer
-                                url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
+                                url={`https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png`}
                             />
                         </LayersControl.BaseLayer>
                     </LayersControl>
-                </div>
+               </div>
             )
 
         }
