@@ -26,7 +26,7 @@ export default class Dashboard extends Component {
 
         this.state = {
             region: null,
-            selectedProperty: 'deceduti',
+            selectedProperty: 'nuovi_positivi',
             geojson: null,
             lastUpdate: ''
         }
@@ -152,7 +152,7 @@ export default class Dashboard extends Component {
             });
 
             return (
-                <div className="flex flex-wrap justify-center flex-row graph_container mx-auto">
+                <div className="flex flex-wrap justify-center flex-row graph_container">
                     <MyResponsivePie data={data_for_graph} />
                     <MyResponsiveBar data={data_for_graph} />
                     <Footer />
@@ -181,11 +181,11 @@ export default class Dashboard extends Component {
                         if (localStorage.getItem('theme') === 'dark') {
                             localStorage.setItem('theme', 'light')
                             window.document.documentElement.classList.remove('dark')
-                            this.setState({theme: 'dark'})
+                            this.setState({ theme: 'dark' })
                         } else {
                             localStorage.setItem('theme', 'dark')
                             window.document.documentElement.classList.add('dark')
-                            this.setState({theme: 'light'})
+                            this.setState({ theme: 'light' })
                         }
                         // window.location.reload()
                     }} >
@@ -202,15 +202,17 @@ export default class Dashboard extends Component {
 
                 <div className="flex flex-col items-center mx-auto m-8">
                     <p className="dark:text-white"> Ultimo aggiornamento : {new Date(this.state.lastUpdate).toLocaleString('it-IT')} </p>
-                    <div className="dark:bg-gray-800">
+                    <div>
                         <DatePicker inputReadOnly={false} disabledDate={this.disabledDate}
                             onChange={this.onChange} defaultValue={moment()} />
+
                     </div>
+                    <a className="text-blue-400 underline" href="http://google.com">Scarica il csv del ministero direttamente</a>
                 </div>
 
-                <div className="flex flex-wrap flex-col" >
+                <div className="flex flex-col" >
 
-                    <div className="flex flex-wrap justify-evenly flex-row ">
+                    <div className="flex flex-wrap md:flex-no-wrap">
 
                         <div className="flex-1 flex-col ">
                             <PropertyChooser setSelectedProperty={this.setSelectedProperty} />
@@ -220,13 +222,12 @@ export default class Dashboard extends Component {
                         <div className="flex-1 flex-col">
                             <RegionChooser region={this.state.region} setRegionFromAlias={this.setRegionFromAlias} />
                             <RegionInfo region={this.state.region} lastUpdate={this.state.lastUpdate} />
-
                         </div>
                     </div>
-                </div>
+                    <div>
+                        {this.prepareDateForNivoBar()}
+                    </div>
 
-                <div>
-                    {this.prepareDateForNivoBar()}
                 </div>
             </div>
         )

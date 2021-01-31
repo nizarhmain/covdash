@@ -1,44 +1,13 @@
 
 
 import React from 'react'
-import AnimatedNumber from "animated-number-react";
-
+import RegionDetails from './RegionDetails'
 
 
 
 export default function RegionInfo({ region, lastUpdate }) {
-    function numberWithCommas(x) {
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-
     // gets the icon for the region
     const findIcon = (region_alias) => { return <img alt="region_icon" className="rounded-lg shadow-2xl region_flag" height="200px" src={`region_icons/${region_alias.replace('/', '_')}.svg`} /> }
-
-    const formatValue = (value) => numberWithCommas(value.toFixed(0));
-
-    function renderRegion(key, value, icon) {
-
-        return (
-            <div className=" flex flex-row justify-around items-center m-3 sm:m-7 md:m-1 w-full max-w-sm bg-white rounded-xl shadow-md dark:bg-gray-800 dark:text-white">
-
-                <div>
-                    <img alt="region_icon" className="svg" src={icon} />
-                </div>
-                <div>
-                    <p>  {key} </p>
-
-
-                    <p className="text-3xl text-center">
-                        <AnimatedNumber
-                            value={value}
-                            formatValue={formatValue}
-                        />
-                    </p>
-
-                </div>
-
-            </div>)
-    }
 
     // console.log(region)
 
@@ -53,14 +22,27 @@ export default function RegionInfo({ region, lastUpdate }) {
         )
     } else {
         return (
-            <div className="flex m-4 sm:m-4 md:m-8 flex-1 self-stretch flex-col justify-evenly items-center">
-                <div className="flex flex-col items-center text-lg dark:text-white"> {findIcon(region.alias)} {region.alias}</div>
-                {renderRegion('Nuovi Positivi', region.nuovi_positivi, "blood-test.svg")}
-                {renderRegion('Tamponi Effetuati', region.tamponi, "swab.svg")}
-                {renderRegion('Positivi Totali', region.totale_positivi, "sick.svg")}
-                {renderRegion('Terapia intensiva', region.terapia_intensiva, "patient.svg")}
-                {renderRegion('Dimessi guariti', region.dimessi_guariti, "heart.svg")}
-                {renderRegion('Deceduti', region.deceduti, "human-skull.svg")}
+            <div className="flex flex-col items-center">
+                <div className="flex flex-col justify-evenly items-center text-lg dark:text-white"> {findIcon(region.alias)} {region.alias}</div>
+
+                <div className="flex flex-wrap justify-around">
+                    <div>
+                        <RegionDetails label='Nuovi Positivi' value={region.nuovi_positivi} icon="blood-test.svg" />
+                        <RegionDetails label='Tamponi Effetuati' value={region.tamponi} icon="swab.svg" />
+                        <RegionDetails label='Positivi Totali' value={region.totale_positivi} extra_value={region.variazione_totale_positivi} icon="sick.svg" />
+                        <RegionDetails label='Dimessi guariti' value={region.dimessi_guariti} icon="heart.svg" />
+                        <RegionDetails label='deceduti' value={region.deceduti} icon="human-skull.svg" />
+                    </div>
+                    <div>
+                        <RegionDetails label='Ospedalizzati' value={region.totale_ospedalizzati} icon="hospital.svg" />
+                        <RegionDetails label='Isolamento domicil.' value={region.isolamento_domiciliare} icon="home.svg" />
+                        <RegionDetails label='Terapia intensiva' value={region.terapia_intensiva} extra_value={region.ingressi_terapia_intensiva} icon="patient.svg" />
+                        <RegionDetails label='Ricoverati con sintomi' value={region.ricoverati_con_sintomi} icon="patient.svg" />
+                    </div>
+                {region.note && <p className="text-xl m-8  dark:text-white"> {region.note}</p>}
+                {region.note_casi && <p className="text-xl m-8 text-yellow-600 dark:text-white"> {region.note_casi}</p>}
+                </div>
+
             </div >
         )
     }
