@@ -81,6 +81,20 @@ class Parser:
 
 ########################################################################################
 
+    def readingCsvNazionale(self, csv_file):
+        data = {}
+        with open(f'{self.data_folder_path}/csv/{csv_file}', 'r') as csvFile:
+            data = []
+            csvReader = csv.DictReader(csvFile)
+            for row in csvReader:
+                data.append(row)
+
+        with open(f'{self.data_folder_path}/json/{csv_file}.json', 'w+') as jsonFile:
+            jsonFile.write(json.dumps(data, indent=4))
+
+
+########################################################################################
+
     def readingCsv(self, csv_file):
 
         print(csv_file)
@@ -141,11 +155,18 @@ class Parser:
 
     def parse(self, csv_file):
 
+        if csv_file == "dpc-covid19-ita-andamento-nazionale.csv":
+            print("weee")
+            self.readingCsvNazionale(csv_file)
+            return
+
         accepted_headers = ['data', 'stato', 'codice_regione', 'denominazione_regione', 'lat', 'long', 'ricoverati_con_sintomi', 'terapia_intensiva', 'totale_ospedalizzati', 'isolamento_domiciliare', 'totale_positivi', 'variazione_totale_positivi', 'nuovi_positivi', 'dimessi_guariti', 'deceduti', 'casi_da_sospetto_diagnostico',
                             'casi_da_screening', 'totale_casi', 'tamponi', 'casi_testati', 'note', 'ingressi_terapia_intensiva', 'note_test', 'note_casi', 'totale_positivi_test_molecolare', 'totale_positivi_test_antigenico_rapido', 'tamponi_test_molecolare', 'tamponi_test_antigenico_rapido', 'codice_nuts_1', 'codice_nuts_2']
 
         accepted_headers_2 = ['data', 'stato', 'codice_regione', 'denominazione_regione', 'lat', 'long', 'ricoverati_con_sintomi', 'terapia_intensiva', 'totale_ospedalizzati', 'isolamento_domiciliare', 'totale_positivi',
                               'variazione_totale_positivi', 'nuovi_positivi', 'dimessi_guariti', 'deceduti', 'casi_da_sospetto_diagnostico', 'casi_da_screening', 'totale_casi', 'tamponi', 'casi_testati', 'note', 'ingressi_terapia_intensiva', 'note_test', 'note_casi']
+
+        
 
         # if self.csv_headers != accepted_headers:
         #     print('bad file')

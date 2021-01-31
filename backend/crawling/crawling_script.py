@@ -14,6 +14,8 @@ def crawl():
       os.mkdir('data/csv')
       os.mkdir('data/geojson')
 
+   if (os.path.exists('data/json') == False):
+      os.mkdir('data/json')
 
    # first download from git
    scrape()

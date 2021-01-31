@@ -41,7 +41,7 @@ def download_file(url, filename):
 
     # unless it is the last file
     if filename == "dpc-covid19-ita-regioni-latest.csv":
-        # delete the previous one 
+        # delete the previous one
         os.remove('data/csv/dpc-covid19-ita-regioni-latest.csv')
 
         # and download this new one
@@ -49,15 +49,36 @@ def download_file(url, filename):
 
     # other wise dont download it
 
-
-def scrape():
+def download_one(repo, subfolder, name):
     g = Github()
     try:
-        repo = g.get_repo("pcm-dpc/COVID-19")
-        contents = repo.get_contents("dati-regioni")
+        repo = g.get_repo(repo)
+        contents = repo.get_contents(subfolder)
+        print(
+            f'repository last updated at {repo.updated_at}, ultimo file {contents[-3].name}')
+        enoughDiskSpace(len(contents))
+
+        for content_file in contents:
+            # print(content_file.download_url)
+            # the size is in kb
+            # print(content_file.size)
+            if (name == content_file.name):
+                print(name)
+                print(content_file.name)
+                download_file(content_file.download_url, content_file.name)
+
+    except Exception:
+        print('cannot make anymore api calls')
 
 
-        print(f'repository last updated at {repo.updated_at}, ultimo file {contents[-3].name}')
+def scrape_repo(repo, subfolder):
+    g = Github()
+    try:
+        repo = g.get_repo(repo)
+        contents = repo.get_contents(subfolder)
+
+        print(
+            f'repository last updated at {repo.updated_at}, ultimo file {contents[-3].name}')
 
         enoughDiskSpace(len(contents))
 
@@ -71,6 +92,10 @@ def scrape():
             download_file(content_file.download_url, content_file.name)
 
         bar.finish()
-
     except Exception:
         print('repo has issues')
+
+
+def scrape():
+    scrape_repo("pcm-dpc/COVID-19", "dati-regioni")
+    download_one("pcm-dpc/COVID-19", "dati-andamento-nazionale", "dpc-covid19-ita-andamento-nazionale.csv")

@@ -27,7 +27,7 @@ describe("testing the dashboard component", () => {
         await dashboard.instance().getRegions("https://nizapizza.com/api/latest")
         expect(dashboard.state().lastUpdate).not.toBe('')
         expect(dashboard.state().region).not.toBeNull()
-        expect(dashboard.state().selectedProperty).toBe('deceduti')
+        expect(dashboard.state().selectedProperty).toBe('nuovi_positivi')
 
         // console.log(process.env)
         // expect(wrapper.props().user).toEqual(user);
