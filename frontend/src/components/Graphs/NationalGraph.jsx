@@ -11,21 +11,19 @@ export const NationalGraph = ({ data /* see data tab */ }) => {
 
     return (<ResponsiveLine
         data={data}
-        margin={{ top: 50, right: 110, bottom: 150, left: 60 }}
+        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
         xScale={{ type: 'point' }}
-        yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
+        yScale={{ type: 'linear', min: 'auto', max: 'auto', reverse: false }}
         yFormat=" >-.2f"
         axisTop={null}
         axisRight={null}
         colors={{ scheme: 'nivo' }}
-        axiosBottom={null}
+        curve="basis"
         enablePoints={false}
         axisBottom={{
             tickRotation: 90,
             // other code
-            legendOffset: -80,
             format: (tick) => moment(tick).format('DD-MM'),
-            tickValues: 'every month'
         }}
         enableArea={true}
         pointSize={10}

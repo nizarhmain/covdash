@@ -1,5 +1,6 @@
 @import '~antd/dist/antd.less';
 
+@phone:~"only screen and (min-width: 400px) and (max-width:767px)";
 @tablet:~"only screen and (min-width: 768px) and (max-width:1024px)";
 @desktop:~"only screen and (min-width: 1025px)";
 
@@ -20,46 +21,35 @@
   }
 
 
-  .graph_container {
-    height: 50vh;
-  }
-
-
-  // graph bar
-  #root > div > div > div:nth-child(4) > div:nth-child(2) > div > div:nth-child(3) {
-    display: none;
-  }
-
-  #root > div > div > div:nth-child(4) > div:nth-child(2) > div > div:nth-child(1) {
-    display: none
-  }
-
 
   .ant-picker-dropdown {
     left: 0px !important;
     margin: 50px !important;
   }
 
+
+
+
+  @media @phone {
+  .graph_container {
+    display: none;
+  }
+
+}
+
+
   @media @tablet {
-    #root > div > div > div:nth-child(5) > div > div:nth-child(2) {
-      display: inline;
-    }
 
    .ant-picker-dropdown {
     margin: 0px !important;
     left: 44% !important;
+
+
+  .graph_container {
+    height: 50vh;
+    width: 50vw;
   }
-
-
-  #root > div > div > div:nth-child(4) > div:nth-child(2) > div > div:nth-child(3) {
-    display: inline;
   }
-
-  #root > div > div > div:nth-child(4) > div:nth-child(2) > div > div:nth-child(1) {
-    display:inline; 
-  }
-
-
 
 }
 
@@ -69,13 +59,15 @@
     left: 44% !important;
   }
 
-  #root > div > div > div:nth-child(4) > div:nth-child(2) > div > div:nth-child(3) {
-    display: inline;
+
+  .graph_container {
+    height: 50vh;
+    width: 50vw;
   }
 
-  #root > div > div > div:nth-child(4) > div:nth-child(2) > div > div:nth-child(1) {
-    display:inline; 
-  }
+
+
+
 
 
 

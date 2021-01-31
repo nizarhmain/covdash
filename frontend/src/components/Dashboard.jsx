@@ -172,7 +172,7 @@ export default class Dashboard extends Component {
             });
 
 
-            let array = this.state.national.slice(Math.max(this.state.national.length - 100, 1))
+            let array = this.state.national.slice(Math.max(this.state.national.length - 60, 1))
 
             let data_for_line = array.map(day => {
                 return {
@@ -189,7 +189,7 @@ export default class Dashboard extends Component {
 
 
             return (
-                <div className="flex flex-wrap justify-center flex-row graph_container">
+                <div className="flex flex-wrap graph_container">
                     <NationalGraph data={datax} />
                     <MyResponsivePie data={data_for_graph} />
                     <MyResponsiveBar data={data_for_graph} />
@@ -260,7 +260,8 @@ export default class Dashboard extends Component {
                             <RegionInfo region={this.state.region} lastUpdate={this.state.lastUpdate} />
                         </div>
                     </div>
-                    <div>
+                    <div className="flex flex-row">
+                        {this.state.national && <RegionInfo region={this.state.national[this.state.national.length - 1]} />}
                         {this.prepareDateForNivoBar()}
                     </div>
                 </div>

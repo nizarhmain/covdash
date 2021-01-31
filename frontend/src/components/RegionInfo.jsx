@@ -7,9 +7,19 @@ import RegionDetails from './RegionDetails'
 
 export default function RegionInfo({ region, lastUpdate }) {
     // gets the icon for the region
-    const findIcon = (region_alias) => { return <img alt="region_icon" className="rounded-lg shadow-2xl region_flag" height="200px" src={`region_icons/${region_alias.replace('/', '_')}.svg`} /> }
+    const findIcon = (region_alias) => {
 
-    // console.log(region)
+        if (region_alias !== undefined) {
+            return <img alt="region_icon" className="rounded-lg shadow-2xl region_flag" height="200px" src={`region_icons/${region_alias.replace('/', '_')}.svg`} />
+        } else {
+            return <img alt="region_icon" className="rounded-lg shadow-2xl region_flag" height="200px" src={`region_icons/Italy.svg`} />
+        }
+
+
+    }
+
+    console.log(region)
+
 
     if (!region) {
         return (
@@ -39,8 +49,8 @@ export default function RegionInfo({ region, lastUpdate }) {
                         <RegionDetails label='Terapia intensiva' value={region.terapia_intensiva} extra_value={region.ingressi_terapia_intensiva} icon="patient.svg" />
                         <RegionDetails label='Ricoverati con sintomi' value={region.ricoverati_con_sintomi} icon="patient.svg" />
                     </div>
-                {region.note && <p className="text-xl m-8  dark:text-white"> {region.note}</p>}
-                {region.note_casi && <p className="text-xl m-8 text-yellow-600 dark:text-white"> {region.note_casi}</p>}
+                    {region.note && <p className="text-xl m-8  dark:text-white"> {region.note}</p>}
+                    {region.note_casi && <p className="text-xl m-8 text-yellow-600 dark:text-white"> {region.note_casi}</p>}
                 </div>
 
             </div >
