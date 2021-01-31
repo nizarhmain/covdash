@@ -26,7 +26,7 @@ export const MyResponsiveBar = ({ data /* see data tab */ }) => (
         labelSkipWidth={12}
         labelSkipHeight={12}
         labelTextColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
-        animate={true}
+        animate={false}
         motionStiffness={90}
         axisBottom={false}
         motionDamping={15}

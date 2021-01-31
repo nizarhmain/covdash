@@ -11,6 +11,7 @@ import RegionChooser from './RegionChooser'
 import { MyResponsiveBar } from './Graphs/Bar'
 import { MyResponsivePie } from './Graphs/Pie'
 import { NationalGraph } from './Graphs/NationalGraph'
+import {  MyResponsiveCalendar } from './Graphs/Calendar'
 
 import { positiveOrNegative, findExtremes } from './Map/Geojson'
 
@@ -154,6 +155,38 @@ export default class Dashboard extends Component {
         return current < moment("20200301", "YYYYMMDD") || current > moment().endOf('day');
     }
 
+    renderNationalGraph() {
+        // let array = this.state.national.slice(Math.max(this.state.national.length - 60, 1))
+        let array = this.state.national
+
+        let data_for_line = array.map(day => {
+            return {
+                "x": day.data,
+                "y": day[this.state.selectedProperty]
+            }
+        })
+        let data_for_line_array = [{
+            "id": "italy",
+            "data": data_for_line,
+            "color": "red"
+        }]
+
+        // this part gets the data ready for the calendar 
+        let calendarData = array.map(day => {
+            return {
+                "day": moment(day.data).format("YYYY-MM-DD"),
+                "value": day[this.state.selectedProperty]
+            }
+        })
+
+        return (
+            <div className="graph_national_container">
+                <NationalGraph data={data_for_line_array} />
+                <MyResponsiveCalendar data={calendarData} />
+            </div>
+        )
+    }
+
 
     prepareDateForNivoBar() {
         if (this.state.geojson) {
@@ -171,33 +204,17 @@ export default class Dashboard extends Component {
                 }
             });
 
-
-            let array = this.state.national.slice(Math.max(this.state.national.length - 60, 1))
-
-            let data_for_line = array.map(day => {
-                return {
-                    "x": day.data,
-                    "y": day[this.state.selectedProperty]
-                }
-            })
-
-            let datax = [{
-                "id": "italy",
-                "data": data_for_line,
-                "color": "hsl(98, 70%, 50%)",
-            }]
-
-
             return (
-                <div className="flex flex-wrap graph_container">
-                    <NationalGraph data={datax} />
+                <div className="graph_container">
                     <MyResponsivePie data={data_for_graph} />
                     <MyResponsiveBar data={data_for_graph} />
-                    <Footer />
                 </div>
             )
         }
     }
+
+
+
 
     render() {
 
@@ -243,10 +260,14 @@ export default class Dashboard extends Component {
                             onChange={this.onChange} defaultValue={moment()} />
 
                     </div>
-                    <a className="text-blue-400 underline" href={`${process.env.REACT_APP_SERVER_URL}/latest_file`}>Scarica il csv del ministero direttamente</a>
+                    <a className="text-blue-400 underline" href={`${process.env.REACT_APP_SERVER_URL}/latest_file`}>Scarica il csv</a>
                 </div>
 
                 <div className="flex flex-col" >
+
+                    <div className="flex flex-wrap justify-center">
+                        <p className="text-2xl font-mono bold dark:text-white"> Informazioni regionali</p>
+                    </div>
 
                     <div className="flex flex-wrap md:flex-no-wrap">
 
@@ -259,10 +280,36 @@ export default class Dashboard extends Component {
                             <RegionChooser region={this.state.region} setRegionFromAlias={this.setRegionFromAlias} />
                             <RegionInfo region={this.state.region} lastUpdate={this.state.lastUpdate} />
                         </div>
+
+                        <div className="hidden lg:flex flex-row w-full justify-center">
+                            {this.prepareDateForNivoBar()}
+                        </div>
                     </div>
-                    <div className="flex flex-row">
-                        {this.state.national && <RegionInfo region={this.state.national[this.state.national.length - 1]} />}
-                        {this.prepareDateForNivoBar()}
+                    <div className="flex flex-col">
+                        <div className="flex flex-wrap flex-col items-center justify-center">
+                            <p className="text-2xl bold font-mono dark:text-white"> Informazioni nazionali</p>
+                            <a className="text-blue-400 underline" href={`${process.env.REACT_APP_SERVER_URL}/latest_file`}>Scarica il csv</a>
+                        </div>
+                        <div className="flex flex-row">
+
+                            <div className="flex justify-center lg:flex flex-1">
+
+
+                                {this.state.national && <RegionInfo region={this.state.national[this.state.national.length - 1]} />}
+
+                            </div>
+
+
+                            <div className="hidden lg:flex flex-1 flex-col w-full">
+                                {this.renderNationalGraph()}
+                            </div>
+
+
+
+                        </div>
+
+                        <Footer />
+
                     </div>
                 </div>
             </div>

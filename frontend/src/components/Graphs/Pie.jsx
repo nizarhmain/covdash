@@ -25,6 +25,7 @@ export const MyResponsivePie = ({ data /* see data tab */ }) => (
         radialLabelsLinkColor={{ from: 'color' }}
         sliceLabelsSkipAngle={10}
         sliceLabelsTextColor="#333333"
+        animate={false}
     
     />
 )

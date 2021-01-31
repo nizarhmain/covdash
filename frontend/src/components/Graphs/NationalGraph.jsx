@@ -1,7 +1,5 @@
 import { ResponsiveLine } from '@nivo/line'
 
-
-import moment from 'moment'
 // make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
 // no chart will be rendered.
@@ -17,17 +15,13 @@ export const NationalGraph = ({ data /* see data tab */ }) => {
         yFormat=" >-.2f"
         axisTop={null}
         axisRight={null}
-        colors={{ scheme: 'nivo' }}
+        colorBy={d => d.color}
         curve="basis"
         enablePoints={false}
-        axisBottom={{
-            tickRotation: 90,
-            // other code
-            format: (tick) => moment(tick).format('DD-MM'),
-        }}
+       
+        axisBottom={null}
         enableArea={true}
         pointSize={10}
-        pointColor={{ theme: 'background' }}
         pointBorderWidth={2}
         pointLabelYOffset={-12}
         enableGridX={false}

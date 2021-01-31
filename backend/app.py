@@ -55,7 +55,7 @@ def latest():
 
 @app.route('/api/latest_file')
 def latest_download():
-    return send_file('data/geojson/dpc-covid19-ita-regioni-latest.csv.json', as_attachment=True)
+    return send_file('data/csv/dpc-covid19-ita-regioni-latest.csv', as_attachment=True)
 
 @app.route('/api/nazionale')
 def latest_nazionale():
