@@ -38,6 +38,7 @@ export default function PropertyChooser( {setSelectedProperty} ) {
                 onBlur={onBlur}
                 defaultValue="nuovi_positivi"
             >
+                <Option value="color">Zone</Option>
                 <Option value="casi_testati">Casi testati</Option>
                 <Option value="deceduti">Deceduti</Option>
                 <Option value="dimessi_guariti">Dimessi guariti</Option>

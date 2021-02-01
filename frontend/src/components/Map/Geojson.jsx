@@ -7,7 +7,7 @@ export default function MyGeojson({ data, selectedProperty, setRegionFromAlias }
 
     //########################################################################################
 
-    const click = (e, region) => { setRegionFromAlias(region.properties.alias)}
+    const click = (e, region) => { setRegionFromAlias(region.properties.alias) }
 
 
     function resetHighlight(e) {
@@ -35,6 +35,40 @@ export default function MyGeojson({ data, selectedProperty, setRegionFromAlias }
     function styleColorHandler(properties, property, extremes) {
         let key = properties[property]
 
+        if (property === "color") {
+
+            if (key === "giallo") {
+                return {
+                    weight: 0,
+                    opacity: 1,
+                    fillColor: 'yellow',
+                    color: 'grey',
+                    dashArray: '3',
+                    fillOpacity: 0.7 
+                }
+            }
+            if (key === "arancione") {
+                return {
+                    weight: 0,
+                    opacity: 1,
+                    fillColor: 'orange',
+                    color: 'grey',
+                    dashArray: '3',
+                    fillOpacity: 0.7
+                }
+            }
+
+            if (key === "rosso") {
+                return {
+                    weight: 0,
+                    opacity: 1,
+                    fillColor: 'red',
+                    color: 'grey',
+                    dashArray: '3',
+                    fillOpacity: 0.7
+                }
+            }
+        }
         // calculate opacity
         let opacity = (key * 0.8 / extremes.max)
 
@@ -113,6 +147,10 @@ export function positiveOrNegative(property) {
 
         case "tamponi_test_molecolare":
             return 'green'
+
+        case "color":
+            return 'yellow'
+
         default:
             return 'red'
     }

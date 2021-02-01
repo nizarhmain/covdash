@@ -3,24 +3,28 @@ import React from 'react'
 
 export default function RegionColor({ color }) {
 
+    let style = {}
+
     const getColor = (color) => {
         if (color === "giallo") {
-            return 'yellow-200';
+            style = { backgroundColor: 'yellow' };
         }
 
         if (color === "arancione") {
-            return 'yellow-500';
+            style = { backgroundColor: 'orange' };
         }
 
         if (color === "rosso") {
-            return 'red-500';
+            style = { backgroundColor: 'red' };
         }
     }
+
+    getColor(color)
 
     return (
         <div className=" flex flex-row justify-around items-center pl-8 pr-8 m-5 max-w-sm bg-white rounded-xl shadow-md dark:bg-gray-800 dark:text-white">
 
-            <div className={`rounded-full bg-${getColor(color)} border-2 flex p-3 relative`}>
+            <div style={style} className={`rounded-full border-2 flex p-3 relative`}>
                 <div className="absolute top-5 left-8">
                 </div>
             </div>

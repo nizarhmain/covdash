@@ -11,7 +11,7 @@ import RegionChooser from './RegionChooser'
 import { MyResponsiveBar } from './Graphs/Bar'
 import { MyResponsivePie } from './Graphs/Pie'
 import { NationalGraph } from './Graphs/NationalGraph'
-import {  MyResponsiveCalendar } from './Graphs/Calendar'
+import { MyResponsiveCalendar } from './Graphs/Calendar'
 
 import { positiveOrNegative, findExtremes } from './Map/Geojson'
 
@@ -156,6 +156,11 @@ export default class Dashboard extends Component {
     }
 
     renderNationalGraph() {
+
+        if (this.state.selectedProperty === "color") {
+            return <div> Selezionare un altra proprieta' per visualizzare i grafici </div>
+        }
+
         // let array = this.state.national.slice(Math.max(this.state.national.length - 60, 1))
         let array = this.state.national
 
@@ -189,6 +194,11 @@ export default class Dashboard extends Component {
 
 
     prepareDateForNivoBar() {
+
+        if (this.state.selectedProperty === "color") {
+            return <div> Selezionare un altra proprieta' per visualizzare i grafici </div>
+        }
+
         if (this.state.geojson) {
             const extremes = findExtremes(this.state.geojson.features, this.state.selectedProperty)
 
