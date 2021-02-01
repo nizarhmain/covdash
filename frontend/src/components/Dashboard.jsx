@@ -305,7 +305,7 @@ export default class Dashboard extends Component {
                             <div className="flex justify-center lg:flex flex-1">
 
 
-                                {this.state.national && <RegionInfo region={this.state.national[this.state.national.length - 1]} />}
+                                {this.state.national && <RegionInfo region={this.state.national[this.state.national.length - 1]} national={true} />}
 
                             </div>
 

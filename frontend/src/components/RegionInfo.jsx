@@ -6,7 +6,7 @@ import RegionDetails from './RegionDetails'
 
 
 
-export default function RegionInfo({ region, lastUpdate }) {
+export default function RegionInfo({ region, national, lastUpdate }) {
     // gets the icon for the region
     const findIcon = (region_alias) => {
 
@@ -49,7 +49,7 @@ export default function RegionInfo({ region, lastUpdate }) {
                         <RegionDetails label='Isolamento domicil.' value={region.isolamento_domiciliare} icon="home.svg" />
                         <RegionDetails label='Terapia intensiva' value={region.terapia_intensiva} extra_value={region.ingressi_terapia_intensiva} icon="patient.svg" />
                         <RegionDetails label='Ricoverati con sintomi' value={region.ricoverati_con_sintomi} icon="patient.svg" />
-                        <RegionColor color={region.color} />
+                        { !national && <RegionColor color={region.color} /> }
                     </div>
                     {region.note && <p className="text-xl m-8  dark:text-white"> {region.note}</p>}
                     {region.note_casi && <p className="text-xl m-8 text-yellow-600 dark:text-white"> {region.note_casi}</p>}
