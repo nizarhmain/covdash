@@ -15,7 +15,7 @@ export const MyResponsiveBar = ({ data /* see data tab */ }) => (
         data={data}
         keys={[ 'value' ]}
         indexBy="alias"
-        margin={{ top: 50, right: 50, bottom: 50, left: 200 }}
+        margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
         padding={0.1}
         borderRadius={9}
         valueScale={{ type: 'linear' }}
